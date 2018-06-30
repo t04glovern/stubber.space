@@ -3,6 +3,7 @@ body {
 }
 
 /*timepicker style*/
+
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
   padding-left: 0;
   padding-right: 0;
@@ -17,16 +18,10 @@ body {
   width: 100%;
 }
 
-
 /*home page styles*/
 
 .masthead {
-  background-image: linear-gradient(
-          135deg,
-          rgb(24, 42, 115) 0%,
-          rgb(33, 138, 174) 69%,
-          rgb(32, 167, 172) 89%
-  ) !important;
+  background-color: rgb(103, 58, 183) !important;
 }
 
 .masthead.segment {
@@ -68,12 +63,7 @@ body {
 }
 
 .ui.fixed.menu {
-  background-image: linear-gradient(
-          135deg,
-          rgb(24, 42, 115) 0%,
-          rgb(33, 138, 174) 69%,
-          rgb(32, 167, 172) 89%
-  ) !important;
+  background-color: rgb(103, 58, 183) !important;
 }
 
 .ui.main.container,
