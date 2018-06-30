@@ -5,6 +5,10 @@
   "dependencies": {
     "cuid": "^2.1.1",
     "date-fns": "^1.29.0",
+    "drizzle": "1.1.5",
+    "drizzle-react": "^1.1.1",
+    "drizzle-react-components": "1.1.0",
+    "eth-block-tracker-es5": "^2.3.2",
     "firebase": "^4.12.1",
     "google-map-react": "^0.34.0",
     "history": "^4.7.2",
@@ -24,6 +28,7 @@
     "react-redux-toastr": "^7.2.3",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
+    "redux-saga": "^0.15.3",
     "react-scripts": "1.1.2",
     "redux": "^3.7.2",
     "redux-auth-wrapper": "^2.0.2",
@@ -32,7 +37,8 @@
     "redux-thunk": "^2.2.0",
     "revalidate": "^1.2.0",
     "semantic-ui-css": "2.2.14",
-    "semantic-ui-react": "^0.79.0"
+    "semantic-ui-react": "^0.79.0",
+    "web3": "1.0.0-beta.34"
   },
   "scripts": {
     "start": "react-scripts start",
