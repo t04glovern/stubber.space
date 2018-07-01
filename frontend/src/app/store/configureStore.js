@@ -7,7 +7,7 @@ import rootReducer from "../reducers/rootReducer";
 import rootSaga from "./../saga/rootSaga";
 import createSagaMiddleware from "redux-saga";
 import firebase from "../config/firebase";
-import { generateContractsInitialState } from "drizzle";
+import { Drizzle, generateStore } from "drizzle";
 import drizzleOptions from '../../drizzleOptions'
 
 const rrfConfig = {
@@ -20,8 +20,11 @@ const rrfConfig = {
 export const configureStore = () => {
 
   const sagaMiddleware = createSagaMiddleware();
+  const drizzleStore = generateStore(drizzleOptions);
+  new Drizzle(drizzleOptions, drizzleStore);
+
   const initialState = {
-    contracts: generateContractsInitialState(drizzleOptions)
+    contracts: drizzleStore
   }
 
   const middlewares = [
