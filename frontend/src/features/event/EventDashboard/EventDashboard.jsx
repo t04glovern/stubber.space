@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Grid, Loader } from "semantic-ui-react";
+import { drizzleConnect } from 'drizzle-react';
 import EventList from "../EventList/EventList";
 import { getEventsForDashboard } from "../eventActions";
 // import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -14,6 +15,13 @@ const query = [
     limit: 5
   }
 ];
+
+const mapStateToProps = state => {
+  return {
+    drizzleStatus: state.drizzleStatus,
+    StubToken: state.contracts.StubToken
+  }
+}
 
 const mapState = state => ({
   events: state.events,
@@ -100,4 +108,4 @@ class EventDashboard extends Component {
 export default connect(
   mapState,
   actions
-)(firestoreConnect(query)(EventDashboard));
+)(drizzleConnect(EventDashboard, mapStateToProps),firestoreConnect(query)(EventDashboard));

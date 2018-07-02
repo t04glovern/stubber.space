@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux'
 import { DrizzleProvider } from 'drizzle-react';
-import drizzleOptions from "./drizzleOptions";
 import ReduxToastr from "react-redux-toastr";
 import "semantic-ui-css/semantic.min.css";
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
@@ -12,6 +11,7 @@ import App from "./app/layout/App";
 import registerServiceWorker from "./registerServiceWorker";
 import { configureStore } from "./app/store/configureStore";
 import ScrollToTop from "./app/common/util/ScrollToTop";
+import drizzleOptions from "./drizzleOptions";
 
 const store = configureStore();
 

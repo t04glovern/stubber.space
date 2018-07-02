@@ -4,11 +4,7 @@ import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import thunk from "redux-thunk";
 import rootReducer from "../reducers/rootReducer";
-import rootSaga from "./../saga/rootSaga";
-import createSagaMiddleware from "redux-saga";
 import firebase from "../config/firebase";
-import { Drizzle, generateStore } from "drizzle";
-import drizzleOptions from '../../drizzleOptions'
 
 const rrfConfig = {
   userProfile: "users",
@@ -17,18 +13,9 @@ const rrfConfig = {
   updateProfileOnLogin: false
 };
 
-export const configureStore = () => {
-
-  const sagaMiddleware = createSagaMiddleware();
-  const drizzleStore = generateStore(drizzleOptions);
-  new Drizzle(drizzleOptions, drizzleStore);
-
-  const initialState = {
-    contracts: drizzleStore
-  }
+export const configureStore = preloadedState => {
 
   const middlewares = [
-    sagaMiddleware,
     thunk.withExtraArgument({
       getFirebase,
       getFirestore
@@ -45,11 +32,9 @@ export const configureStore = () => {
 
   const store = createStore(
     rootReducer,
-    initialState,
-    composedEnhancer,
+    preloadedState,
+    composedEnhancer
   );
-
-  sagaMiddleware.run(rootSaga);
 
   if (process.env.NODE_ENV !== "production") {
     if (module.hot) {
