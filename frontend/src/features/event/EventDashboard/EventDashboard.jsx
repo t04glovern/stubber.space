@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-import { Grid, Loader } from "semantic-ui-react";
+import { Grid, Loader, List } from "semantic-ui-react";
 import { drizzleConnect } from "drizzle-react";
-import { ContractData } from "drizzle-react-components";
+// import { ContractData } from "drizzle-react-components";
 import EventList from "../EventList/EventList";
 import { getEventsForDashboard } from "../eventActions";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -40,6 +40,7 @@ class EventDashboard extends Component {
   constructor(props, context) {
     super(props);
     this.contracts = context.drizzle.contracts;
+    this.web3 = context.drizzle.web3;
   }
 
   state = {
@@ -93,13 +94,27 @@ class EventDashboard extends Component {
     });
 
   render() {
-    const { loading, activities, drizzleStatus, accounts } = this.props;
+    const {
+      loading,
+      activities,
+      // drizzleStatus,
+      StubToken,
+      accounts
+    } = this.props;
     const { moreEvents, loadedEvents } = this.state;
     if (this.state.loadingDrizzle) return <LoadingComponent inverted={true} />;
+    var storedData = this.contracts["StubToken"].methods["getEvent"].cacheCall(
+      0,
+      { from: accounts[0] }
+    );
+    var dataValue =
+      StubToken.synced && StubToken["getEvent"][storedData]
+        ? StubToken["getEvent"][storedData].value
+        : "Loading...";
     return (
       <Grid>
         <Grid.Column width={10}>
-          {drizzleStatus.initialized && (
+          {/* {drizzleStatus.initialized && (
             <div>
               <p>
                 <strong>
@@ -116,7 +131,52 @@ class EventDashboard extends Component {
                   methodArgs={[{ from: accounts[0] }]}
                 />
               </p>
+              <p>
+                <ContractData
+                  contract="StubToken"
+                  method="getEvent"
+                  methodArgs={[0, { from: accounts[0] }]}
+                />
+              </p>
             </div>
+          )} */}
+          {dataValue !== "Loading..." && (
+            <List>
+              <List.Item>
+                <List.Header>Artist Address</List.Header>
+                <List.Content>{dataValue.artist}</List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Header>Event Name</List.Header>
+                <List.Content>
+                  {this.web3.utils.hexToAscii(dataValue.name)}
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Header>Event Location</List.Header>
+                <List.Content>
+                  {this.web3.utils.hexToAscii(dataValue.location)}
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Header>Event Price</List.Header>
+                <List.Content>
+                  {this.web3.utils.fromWei(dataValue.price)}
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Header>Event Time</List.Header>
+                <List.Content>{dataValue.time}</List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Header>Tickets Sold</List.Header>
+                <List.Content>{dataValue.sales}</List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Header>Tickets Cap</List.Header>
+                <List.Content>{dataValue.salesCap}</List.Content>
+              </List.Item>
+            </List>
           )}
           <div ref={this.handleContextRef}>
             <EventList
