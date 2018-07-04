@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Grid, Loader } from "semantic-ui-react";
-import { drizzleConnect } from 'drizzle-react';
+import { drizzleConnect } from "drizzle-react";
+import { ContractData } from "drizzle-react-components";
 import EventList from "../EventList/EventList";
 import { getEventsForDashboard } from "../eventActions";
 // import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -19,9 +21,10 @@ const query = [
 const mapStateToProps = state => {
   return {
     drizzleStatus: state.drizzleStatus,
-    StubToken: state.contracts.StubToken
-  }
-}
+    StubToken: state.contracts.StubToken,
+    accounts: state.accounts
+  };
+};
 
 const mapState = state => ({
   events: state.events,
@@ -34,6 +37,11 @@ const actions = {
 };
 
 class EventDashboard extends Component {
+  constructor(props, context) {
+    super(props);
+    this.contracts = context.drizzle.contracts;
+  }
+
   state = {
     moreEvents: false,
     loadingInitial: true,
@@ -76,12 +84,31 @@ class EventDashboard extends Component {
     });
 
   render() {
-    const { loading, activities } = this.props;
+    const { loading, activities, drizzleStatus, accounts } = this.props;
     const { moreEvents, loadedEvents } = this.state;
     // if (this.state.loadingInitial) return <LoadingComponent inverted={true} />;
     return (
       <Grid>
         <Grid.Column width={10}>
+          {drizzleStatus.initialized && (
+            <div>
+              <p>
+                <strong>
+                  <ContractData
+                    contract="StubToken"
+                    method="symbol"
+                    hideIndicator
+                  />
+                  's Sold
+                </strong>:{" "}
+                <ContractData
+                  contract="StubToken"
+                  method="totalSupply"
+                  methodArgs={[{ from: accounts[0] }]}
+                />
+              </p>
+            </div>
+          )}
           <div ref={this.handleContextRef}>
             <EventList
               loading={loading}
@@ -105,7 +132,15 @@ class EventDashboard extends Component {
   }
 }
 
+EventDashboard.contextTypes = {
+  drizzle: PropTypes.object,
+  drizzleStore: PropTypes.object
+};
+
 export default connect(
   mapState,
   actions
-)(drizzleConnect(EventDashboard, mapStateToProps),firestoreConnect(query)(EventDashboard));
+)(
+  drizzleConnect(EventDashboard, mapStateToProps),
+  firestoreConnect(query)(EventDashboard)
+);
