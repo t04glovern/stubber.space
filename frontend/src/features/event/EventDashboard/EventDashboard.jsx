@@ -7,7 +7,7 @@ import { drizzleConnect } from "drizzle-react";
 import { ContractData } from "drizzle-react-components";
 import EventList from "../EventList/EventList";
 import { getEventsForDashboard } from "../eventActions";
-// import LoadingComponent from "../../../app/layout/LoadingComponent";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 import EventActivity from "../EventActivity/EventActivity";
 
 const query = [
@@ -45,16 +45,25 @@ class EventDashboard extends Component {
   state = {
     moreEvents: false,
     loadingInitial: true,
+    loadingDrizzle: true,
     loadedEvents: [],
     contextRef: []
   };
 
   async componentDidMount() {
+    // Checks to see if Events finished loading
     let next = await this.props.getEventsForDashboard();
     if (next && next.docs && next.docs.length > 1) {
       this.setState({
         moreEvents: true,
         loadingInitial: false
+      });
+    }
+    // Checks to see if Drizzle finished loading
+    let status = this.props.drizzleStatus;
+    if (status && status.initialized) {
+      this.setState({
+        loadingDrizzle: false
       });
     }
   }
@@ -86,7 +95,7 @@ class EventDashboard extends Component {
   render() {
     const { loading, activities, drizzleStatus, accounts } = this.props;
     const { moreEvents, loadedEvents } = this.state;
-    // if (this.state.loadingInitial) return <LoadingComponent inverted={true} />;
+    if (this.state.loadingDrizzle) return <LoadingComponent inverted={true} />;
     return (
       <Grid>
         <Grid.Column width={10}>
