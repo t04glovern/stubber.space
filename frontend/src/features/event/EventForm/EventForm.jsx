@@ -9,7 +9,8 @@ import {
   composeValidators,
   combineValidators,
   isRequired,
-  hasLengthGreaterThan
+  hasLengthGreaterThan,
+  hasLengthBetween
 } from "revalidate";
 import { Segment, Form, Button, Grid, Header } from "semantic-ui-react";
 import { createEvent, updateEvent, cancelToggle } from "../eventActions";
@@ -18,6 +19,7 @@ import TextArea from "../../../app/common/form/TextArea";
 import SelectInput from "../../../app/common/form/SelectInput";
 import DateInput from "../../../app/common/form/DateInput";
 import PlaceInput from "../../../app/common/form/PlaceInput";
+import NumberInput from "../../../app/common/form/NumberInput";
 
 const mapState = state => {
   let event = {};
@@ -40,16 +42,37 @@ const actions = {
 };
 
 const category = [
-  { key: "drinks", text: "Drinks", value: "drinks" },
-  { key: "culture", text: "Culture", value: "culture" },
-  { key: "film", text: "Film", value: "film" },
-  { key: "food", text: "Food", value: "food" },
-  { key: "music", text: "Music", value: "music" },
-  { key: "travel", text: "Travel", value: "travel" }
+  { key: "alternative", text: "Alternative", value: "alternative" },
+  { key: "blues", text: "Blues", value: "blues" },
+  { key: "classical", text: "Classical", value: "classical" },
+  { key: "country", text: "Country", value: "country" },
+  { key: "dance", text: "Dance", value: "dance" },
+  { key: "easylistening", text: "Easy Listening", value: "easylistening" },
+  { key: "electronic", text: "Electronic", value: "electronic" },
+  { key: "europeanfolkpop", text: "European (Folk Pop)", value: "europeanfolkpop" },
+  { key: "hiphoprap", text: "Hip Hop / Rap", value: "hiphoprap" },
+  { key: "indiepop", text: "Indie Pop", value: "indiepop" },
+  { key: "gospel", text: "Gospel", value: "gospel" },
+  { key: "asianpop", text: "Asian Pop", value: "asianpop" },
+  { key: "jazz", text: "Jazz", value: "jazz" },
+  { key: "latin", text: "Latin", value: "latin" },
+  { key: "newage", text: "New Age", value: "newage" },
+  { key: "opera", text: "Opera", value: "opera" },
+  { key: "pop", text: "Pop", value: "pop" },
+  { key: "rbsoul", text: "R&B / Soul", value: "rbsoul" },
+  { key: "reggae", text: "Reggae", value: "reggae" },
+  { key: "rock", text: "Rock", value: "rock" },
+  { key: "singerfolk", text: "Singer (Folk)", value: "singerfolk" },
+  { key: "worldmusicbeats", text: "World Music / Beats", value: "worldmusicbeats" }
 ];
 
 const validate = combineValidators({
-  title: isRequired({ message: "The event title is required" }),
+  title: composeValidators(
+    isRequired({ message: "The event title is required" }),
+    hasLengthBetween(4,30)({
+      message: "Title must be less than 30 characters"
+    })
+  )(),
   category: isRequired({ message: "Please provide a category" }),
   description: composeValidators(
     isRequired({ message: "Please enter a description" }),
@@ -59,7 +82,9 @@ const validate = combineValidators({
   )(),
   city: isRequired("city"),
   venue: isRequired("venue"),
-  date: isRequired("date")
+  date: isRequired("date"),
+  ticketcap: isRequired("Ticket Cap"),
+  ticketprice: isRequired("Ticket Price")
 });
 
 class EventForm extends Component {
@@ -194,6 +219,19 @@ class EventForm extends Component {
                 timeFormat="HH:mm"
                 showTimeSelect
                 placeholder="Date and Time of event"
+              />
+              <Header sub color="teal" content="Event Ticketing" />
+              <Field
+                name="ticketcap"
+                type="number"
+                component={NumberInput}
+                placeholder="Number of Tickets available"
+              />
+              <Field
+                name="ticketprice"
+                type="number"
+                component={NumberInput}
+                placeholder="Price of Ticket (ETH)"
               />
               <Button
                 loading={loading}

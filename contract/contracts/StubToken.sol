@@ -162,6 +162,38 @@ contract StubToken is ERC721Token, Ownable {
         _totalSupply = events.length;
     }
 
+    /// @dev Retrieves all Events
+    function getAllEvents() public view returns (
+        address[],
+        bytes32[],
+        bytes32[],
+        uint[],
+        uint[],
+        uint[],
+        uint[]
+    ) {
+        uint256 total = totalEventSupply();
+        address[] memory artists = new address[](total);
+        bytes32[] memory names = new bytes32[](total);
+        bytes32[] memory locations = new bytes32[](total);
+        uint[] memory prices = new uint[](total);
+        uint[] memory times = new uint[](total);
+        uint[] memory soldTickets = new uint[](total);
+        uint[] memory salesCaps = new uint[](total);
+
+        for (uint256 i = 0; i < total; i++) {
+            artists[i] = events[i].artist;
+            names[i] = events[i].name;
+            locations[i] = events[i].location;
+            prices[i] = events[i].price;
+            times[i] = events[i].time;
+            soldTickets[i] = totalEventSales[i];
+            salesCaps[i] = events[i].salesCap;
+        }
+
+        return (artists, names, locations, prices, times, soldTickets, salesCaps);
+    }
+
     /// @dev Returns the balance value for an event
     function withdrawBalance(uint _eventId) public onlyArtist(_eventId) {
         Event memory _event = events[_eventId];
