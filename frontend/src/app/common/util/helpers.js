@@ -12,6 +12,7 @@ export const createNewEvent = (user, photoURL, event) => {
   event.date = moment(event.date).toDate();
   return {
     ...event,
+    dateEpoch: event.date.valueOf(),
     hostUid: user.uid,
     hostedBy: user.displayName,
     hostPhotoURL: photoURL || '/assets/user.png',

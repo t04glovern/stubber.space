@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Grid, Loader } from "semantic-ui-react";
 import { drizzleConnect } from "drizzle-react";
-import EventList from "../EventList/EventList";
+// import EventList from "../EventList/EventList";
 import StubEventList from "../EventList/StubEventList";
 import { getEventsForDashboard } from "../eventActions";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -100,7 +100,7 @@ class EventDashboard extends Component {
       StubToken,
       accounts
     } = this.props;
-    const { moreEvents, loadedEvents } = this.state;
+    // const { moreEvents, loadedEvents } = this.state;
     if (this.state.loadingDrizzle) return <LoadingComponent inverted={true} />;
     var storedData = this.contracts["StubToken"].methods["getAllEvents"].cacheCall(
       { from: accounts[0] }
@@ -115,14 +115,14 @@ class EventDashboard extends Component {
           {stubEvents !== "Loading..." && (
             <StubEventList stubEvents={stubEvents} web3={this.web3} />
           )}
-          <div ref={this.handleContextRef}>
+          {/* <div ref={this.handleContextRef}>
             <EventList
               loading={loading}
               moreEvents={moreEvents}
               events={loadedEvents}
               getNextEvents={this.getNextEvents}
             />
-          </div>
+          </div> */}
         </Grid.Column>
         <Grid.Column width={6}>
           <EventActivity

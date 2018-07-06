@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bignumber.js": "^7.2.1",
     "cuid": "^2.1.1",
     "date-fns": "^1.29.0",
     "deepmerge": "^2.1.1",

@@ -1,5 +1,6 @@
 /*global google*/
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withFirestore } from "react-redux-firebase";
 import { reduxForm, Field } from "redux-form";
@@ -88,6 +89,13 @@ const validate = combineValidators({
 });
 
 class EventForm extends Component {
+  constructor(props, context) {
+    super(props);
+    this.contracts = context.drizzle.contracts;
+    this.web3 = context.drizzle.web3;
+    this.drizzle = context.drizzle;
+  }
+
   state = {
     cityLatLng: {},
     venueLatLng: {},
@@ -144,7 +152,7 @@ class EventForm extends Component {
       await this.props.updateEvent(values);
       this.props.history.goBack();
     } else {
-      this.props.createEvent(values);
+      this.props.createEvent(values, this.drizzle);
       this.props.history.push("/events");
     }
   };
@@ -221,18 +229,20 @@ class EventForm extends Component {
                 placeholder="Date and Time of event"
               />
               <Header sub color="teal" content="Event Ticketing" />
-              <Field
-                name="ticketcap"
-                type="number"
-                component={NumberInput}
-                placeholder="Number of Tickets available"
-              />
-              <Field
-                name="ticketprice"
-                type="number"
-                component={NumberInput}
-                placeholder="Price of Ticket (ETH)"
-              />
+              <Form.Group widths={2}>
+                <Field
+                  name="ticketcap"
+                  type="number"
+                  component={NumberInput}
+                  placeholder="Total Tickets on sale"
+                />
+                <Field
+                  name="ticketprice"
+                  type="number"
+                  component={NumberInput}
+                  placeholder="Price of Ticket (ETH)"
+                />
+              </Form.Group>
               <Button
                 loading={loading}
                 disabled={invalid || submitting || pristine}
@@ -266,6 +276,11 @@ class EventForm extends Component {
     );
   }
 }
+
+EventForm.contextTypes = {
+  drizzle: PropTypes.object,
+  drizzleStore: PropTypes.object
+};
 
 export default withFirestore(
   connect(

@@ -10,20 +10,43 @@ import moment from "moment";
 import firebase from "../../app/config/firebase";
 import compareAsc from "date-fns/compare_asc";
 
-export const createEvent = event => {
+export const createEvent = (event, drizzle) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const user = firestore.auth().currentUser;
     const photoURL = getState().firebase.profile.photoURL;
     let newEvent = createNewEvent(user, photoURL, event);
+
+    var state = drizzle.store.getState();
+    const web3 = drizzle.web3;
+    const account = "0x0618479A6adE6fb3B498f1aE4914f8C251Ce3e20";
+
     try {
-      let createdEvent = await firestore.add(`events`, newEvent);
-      await firestore.set(`event_attendee/${createdEvent.id}_${user.uid}`, {
-        eventId: createdEvent.id,
-        userUid: user.uid,
-        eventDate: event.date,
-        host: true
-      });
+      dispatch(asyncActionStart());
+      if (state.drizzleStatus.initialized) {
+        drizzle.contracts["StubToken"].methods["createEvent"].cacheSend(
+          account,
+          web3.utils.stringToHex(newEvent.title),
+          web3.utils.stringToHex(newEvent.city),
+          web3.utils.toWei(newEvent.ticketprice),
+          Number(newEvent.dateEpoch),
+          Number(newEvent.ticketcap),
+          {
+            from: account
+          }
+        );
+        let createdEvent = await firestore.add(`events`, newEvent);
+        await firestore.set(`event_attendee/${createdEvent.id}_${user.uid}`, {
+          eventId: createdEvent.id,
+          userUid: user.uid,
+          eventDate: event.date,
+          host: true
+        });
+      } else {
+        dispatch(asyncActionError());
+        toastr.error("Oops", "Not connected to Web3");
+      }
+      dispatch(asyncActionFinish());
       toastr.success("Success!", "Event has been created");
     } catch (error) {
       toastr.error("Oops", "Something went wrong");
