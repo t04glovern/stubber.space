@@ -14,13 +14,15 @@ module.exports = {
       port: 8545,
       network_id: "*" // Match any network id
     },
-    ropsten: { // 0x50efd5453bc3b33b58d2c445556b98b31ba8fb2d
+    ropsten: { // 0x7edea2e13593fc40cc47c1710b1c6e9ed7cff974
       provider: function() {
         return new PrivateKeyProvider(privKey, "https://ropsten.infura.io/1LPE9dOwZvYF9JQOPGHz");
       },
+      gas: 4500000,
+      gasPrice: 21000000000,
       network_id: '3',
     },
-    rinkeby: { // 0x4497DAC8E29945E3dA45dA426B28BF77138C571E
+    rinkeby: { // 0x7b1c6b2be49580f7f1facc87402f4a57cf34c42c
       provider: function() {
         return new PrivateKeyProvider(privKey, "https://rinkeby.infura.io/1LPE9dOwZvYF9JQOPGHz")
       },

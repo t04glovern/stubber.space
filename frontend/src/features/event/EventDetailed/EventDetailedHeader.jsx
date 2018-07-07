@@ -34,7 +34,7 @@ const EventDetailedHeader = ({
     <Segment.Group>
       <Segment basic attached="top" style={{ padding: "0" }}>
         <Image
-          src={`/assets/categoryImages/${event.category}.jpg`}
+          src={`/assets/categoryImages/${event.category}.jpg` && `/assets/categoryImages/music.jpg`}
           fluid
           style={eventImageStyle}
         />
@@ -50,7 +50,7 @@ const EventDetailedHeader = ({
                 />
                 <p>{format(eventDate, "dddd Do MMMM")}</p>
                 <p>
-                  Hosted by <strong>{event.hostedBy}</strong>
+                  Hosted by <strong>{event.artist}</strong>
                 </p>
               </Item.Content>
             </Item>
@@ -74,7 +74,7 @@ const EventDetailedHeader = ({
                 <Button
                   loading={loading}
                   onClick={() => goingToEvent(event)}
-                  color="teal"
+                  color="violet"
                 >
                   JOIN THIS EVENT
                 </Button>
@@ -85,7 +85,7 @@ const EventDetailedHeader = ({
                 <Button
                   loading={loading}
                   onClick={() => openModal("UnauthModal")}
-                  color="teal"
+                  color="violet"
                 >
                   JOIN THIS EVENT
                 </Button>

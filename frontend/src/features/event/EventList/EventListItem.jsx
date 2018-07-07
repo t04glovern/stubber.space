@@ -54,7 +54,7 @@ class EventListItem extends Component {
           <Button
             as={Link}
             to={`/event/${event.id}`}
-            color="teal"
+            color="violet"
             floated="right"
             content="View"
           />

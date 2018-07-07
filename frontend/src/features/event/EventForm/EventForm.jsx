@@ -174,7 +174,7 @@ class EventForm extends Component {
         />
         <Grid.Column width={10}>
           <Segment>
-            <Header sub color="teal" content="Event Details" />
+            <Header sub color="violet" content="Event Details" />
             <Form onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
               <Field
                 name="title"
@@ -196,7 +196,7 @@ class EventForm extends Component {
                 component={TextArea}
                 placeholder="Tell us about your event"
               />
-              <Header sub color="teal" content="Event Location Details" />
+              <Header sub color="violet" content="Event Location Details" />
               <Field
                 name="city"
                 type="text"
@@ -228,7 +228,7 @@ class EventForm extends Component {
                 showTimeSelect
                 placeholder="Date and Time of event"
               />
-              <Header sub color="teal" content="Event Ticketing" />
+              <Header sub color="violet" content="Event Ticketing" />
               <Form.Group widths={2}>
                 <Field
                   name="ticketcap"

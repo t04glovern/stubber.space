@@ -17,8 +17,10 @@ contract("Stub token", accounts => {
 
       let events = await instance.createEvent(
         owner,
+        web3.fromAscii('Fn6NZVMV3IvkoHYGVZtm'),
         web3.fromAscii('Kendrick Lamar'),
-        web3.fromAscii('Perth Arena, WA'),
+        -31.950527,
+        115.860457,
         ether(0.18850604858538503),
         1531222200,
         20
@@ -43,8 +45,10 @@ contract("Stub token", accounts => {
       await assertRevert(
         instance.createEvent(
           other,
+          web3.fromAscii('Fn6NZVMV3IvkoHYGVZtm'),
           web3.fromAscii('Kendrick Lamar'),
-          web3.fromAscii('Perth Arena, WA'),
+          -31.950527,
+          115.860457,
           ether(0.18850604858538503),
           1531222200,
           3500

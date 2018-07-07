@@ -11,9 +11,9 @@ This repository houses the Stubber ticket sale and management platform. It has b
 
 ## Networks
 
-- ropsten : [0x50efd5453bc3b33b58d2c445556b98b31ba8fb2d](https://ropsten.etherscan.io/address/0x50efd5453bc3b33b58d2c445556b98b31ba8fb2d)
+- ropsten : [0x7edea2e13593fc40cc47c1710b1c6e9ed7cff974](https://ropsten.etherscan.io/address/0x7edea2e13593fc40cc47c1710b1c6e9ed7cff974)
 
-- rinkeby : [0x4497DAC8E29945E3dA45dA426B28BF77138C571E](https://rinkeby.etherscan.io/address/0x4497DAC8E29945E3dA45dA426B28BF77138C571E)
+- rinkeby : [0x7b1c6b2be49580f7f1facc87402f4a57cf34c42c](https://rinkeby.etherscan.io/address/0x7b1c6b2be49580f7f1facc87402f4a57cf34c42c)
 
 
 ## Developing This Contract
@@ -51,7 +51,7 @@ The configuration for running the network locally using truffle is in the `truff
 To change the network address this Dapp connects to simple open up `src/js/app.js` and change the following line to point at your deployed verions of this repos contract
 
 ```javascript
-  StubTokenAddress: '0x50efd5453bc3b33b58d2c445556b98b31ba8fb2d',
+  StubTokenAddress: '0x7b1c6b2be49580f7f1facc87402f4a57cf34c42c',
 ```
 
 ## Attribution

@@ -8,10 +8,11 @@ export const objectToArray = (object) => {
   }
 }
 
-export const createNewEvent = (user, photoURL, event) => {
+export const createNewEvent = (user, photoURL, event, account) => {
   event.date = moment(event.date).toDate();
   return {
     ...event,
+    artist: account,
     dateEpoch: event.date.valueOf(),
     hostUid: user.uid,
     hostedBy: user.displayName,

@@ -8,10 +8,9 @@ class EventList extends Component {
     let stubEventMap = [];
     for (var x = 0; x < stubEvents[0].length; x++) {
       stubEventMap[x] = {
-        id: x,
         artist: stubEvents[0][x],
-        name: web3.utils.hexToAscii(stubEvents[1][x]),
-        location: web3.utils.hexToAscii(stubEvents[2][x]),
+        id: web3.utils.hexToAscii(stubEvents[1][x]).replace(/\0.*$/g,''),
+        name: web3.utils.hexToAscii(stubEvents[2][x]).replace(/\0.*$/g,''),
         price: web3.utils.fromWei(stubEvents[3][x]),
         time: stubEvents[4][x],
         sales: stubEvents[5][x],

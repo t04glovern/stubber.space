@@ -87,12 +87,12 @@ class TestComponent extends Component {
         />
         <Button
           onClick={() => openModal("TestModal", { data: 43 })}
-          color="teal"
+          color="violet"
           content="Open Modal"
         />
         <Button
           onClick={testPermission}
-          color="teal"
+          color="violet"
           content="Test Permission"
         />
         <br />

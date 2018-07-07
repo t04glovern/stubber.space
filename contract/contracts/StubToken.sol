@@ -19,8 +19,10 @@ contract StubToken is ERC721Token, Ownable {
 
     struct Event {
         address artist;
+        bytes32 id;
         bytes32 name;
-        bytes32 location;
+        uint locationLat;
+        uint locationLng;
         uint price;
         uint time;
         uint salesCap;
@@ -32,6 +34,7 @@ contract StubToken is ERC721Token, Ownable {
     mapping (uint => uint) private totalEventSales;
     mapping (address => uint) private totalOwnedTickets;
     mapping (uint => uint) private eventRevenue;
+    mapping (bytes32 => uint) private eventRefIdToEvent;
 
     modifier onlyArtist(uint _eventId) {
         Event memory _event = events[_eventId];
@@ -51,8 +54,10 @@ contract StubToken is ERC721Token, Ownable {
     /// @param _eventId ID of the event
     function getEvent(uint _eventId) public view returns(
             address artist, 
+            bytes32 id,
             bytes32 name, 
-            bytes32 location, 
+            uint locationLat,
+            uint locationLng,
             uint price, 
             uint time, 
             uint sales, 
@@ -61,8 +66,10 @@ contract StubToken is ERC721Token, Ownable {
         Event memory _event = events[_eventId];
 
         artist = _event.artist;
+        id = _event.id;
         name = _event.name;
-        location = _event.location;
+        locationLat = _event.locationLat;
+        locationLng = _event.locationLng;
         price = _event.price;
         time = _event.time;
         sales = totalEventSales[_eventId];
@@ -72,7 +79,8 @@ contract StubToken is ERC721Token, Ownable {
     function getTicketDetails(uint _ticketId) public view returns(
             address artist, 
             bytes32 name, 
-            bytes32 location, 
+            uint locationLat,
+            uint locationLng,
             uint price, 
             uint time
         ) {
@@ -81,28 +89,43 @@ contract StubToken is ERC721Token, Ownable {
 
         artist = _event.artist;
         name = _event.name;
-        location = _event.location;
+        locationLat = _event.locationLat;
+        locationLng = _event.locationLng;
         price = _event.price;
         time = _event.time;
     }
 
     /// @dev Used to create a new Event
     /// @param _artist Address of the artist to recieve the funds
-    /// @param _name Name of the event (32 Character limit)
-    /// @param _location Name of the location for the event (32 Character limit)
+    /// @param _id Reference identifier for event usable externally
+    /// @param _name Name of the event
+    /// @param _locationLat Lat of the event
+    /// @param _locationLng Lng of the event
     /// @param _price Ticket price for the event
     /// @param _time Timestamp in Epoch for the event
     /// @param _salesCap Number of tickets allowed to be sold for the event
-    function createEvent(address _artist, bytes32 _name, bytes32 _location, uint _price, uint _time, uint _salesCap) public onlyOwner {
+    function createEvent(
+        address _artist, 
+        bytes32 _id,
+        bytes32 _name, 
+        uint _locationLat,
+        uint _locationLng,
+        uint _price, 
+        uint _time, 
+        uint _salesCap
+        ) public onlyOwner {
         Event memory _event = Event({
             artist: _artist,
+            id: _id,
             name: _name,
-            location: _location,
+            locationLat: _locationLat,
+            locationLng: _locationLng,
             price: _price,
             time: _time,
             salesCap: _salesCap
         });
         uint _eventId = events.push(_event) - 1;
+        eventRefIdToEvent[_event.id] = _eventId;
         emit NewEvent(_eventId);
     }
 
@@ -174,8 +197,8 @@ contract StubToken is ERC721Token, Ownable {
     ) {
         uint256 total = totalEventSupply();
         address[] memory artists = new address[](total);
+        bytes32[] memory ids = new bytes32[](total);
         bytes32[] memory names = new bytes32[](total);
-        bytes32[] memory locations = new bytes32[](total);
         uint[] memory prices = new uint[](total);
         uint[] memory times = new uint[](total);
         uint[] memory soldTickets = new uint[](total);
@@ -183,15 +206,15 @@ contract StubToken is ERC721Token, Ownable {
 
         for (uint256 i = 0; i < total; i++) {
             artists[i] = events[i].artist;
+            ids[i] = events[i].id;
             names[i] = events[i].name;
-            locations[i] = events[i].location;
             prices[i] = events[i].price;
             times[i] = events[i].time;
             soldTickets[i] = totalEventSales[i];
             salesCaps[i] = events[i].salesCap;
         }
 
-        return (artists, names, locations, prices, times, soldTickets, salesCaps);
+        return (artists, ids, names, prices, times, soldTickets, salesCaps);
     }
 
     /// @dev Returns the balance value for an event
