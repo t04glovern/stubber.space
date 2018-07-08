@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Grid } from "semantic-ui-react";
 import StubEventListItem from "./StubEventListItem";
 
 class EventList extends Component {
@@ -19,12 +20,12 @@ class EventList extends Component {
     }
 
     return (
-      <div>
+      <Grid.Row columns={3}>
         {stubEventMap &&
           stubEventMap.map(stubEvent => (
             <StubEventListItem key={stubEvent.id} stubEvent={stubEvent} />
           ))}
-      </div>
+      </Grid.Row>
     );
   }
 }

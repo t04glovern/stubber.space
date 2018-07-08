@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { toastr } from "react-redux-toastr";
 import { withFirestore, firebaseConnect, isEmpty } from "react-redux-firebase";
@@ -43,6 +44,11 @@ const actions = {
 };
 
 class EventDetailedPage extends Component {
+  constructor(props, context) {
+    super(props);
+    this.drizzle = context.drizzle;
+  }
+
   state = {
     initialLoading: true
   };
@@ -105,6 +111,7 @@ class EventDetailedPage extends Component {
             cancelGoingToEvent={cancelGoingToEvent}
             authenticated={authenticated}
             openModal={openModal}
+            drizzle={this.drizzle}
           />
           <EventDetailedInfo event={event} />
           {authenticated && (
@@ -122,6 +129,11 @@ class EventDetailedPage extends Component {
     );
   }
 }
+
+EventDetailedPage.contextTypes = {
+  drizzle: PropTypes.object,
+  drizzleStore: PropTypes.object
+};
 
 export default compose(
   withFirestore,

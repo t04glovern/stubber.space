@@ -24,7 +24,8 @@ const EventDetailedHeader = ({
   goingToEvent,
   cancelGoingToEvent,
   authenticated,
-  openModal
+  openModal,
+  drizzle
 }) => {
   let eventDate;
   if (event.date) {
@@ -63,8 +64,8 @@ const EventDetailedHeader = ({
           <div>
             {isGoing &&
               !event.cancelled && (
-                <Button onClick={() => cancelGoingToEvent(event)}>
-                  Cancel My Place
+                <Button color="green" /*onClick={() => cancelGoingToEvent(event)}*/>
+                  Attending
                 </Button>
               )}
 
@@ -73,10 +74,10 @@ const EventDetailedHeader = ({
               !event.cancelled && (
                 <Button
                   loading={loading}
-                  onClick={() => goingToEvent(event)}
+                  onClick={() => goingToEvent(event, drizzle)}
                   color="violet"
                 >
-                  JOIN THIS EVENT
+                  Purchase Ticket
                 </Button>
               )}
 
@@ -87,7 +88,7 @@ const EventDetailedHeader = ({
                   onClick={() => openModal("UnauthModal")}
                   color="violet"
                 >
-                  JOIN THIS EVENT
+                  Purchase Ticket
                 </Button>
               )}
 

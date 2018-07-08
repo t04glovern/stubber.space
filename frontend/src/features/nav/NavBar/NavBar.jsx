@@ -17,6 +17,7 @@ const mapState = state => ({
 });
 
 class NavBar extends Component {
+
   handleSignIn = () => {
     this.props.openModal("LoginModal");
   };

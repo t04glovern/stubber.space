@@ -18,7 +18,7 @@ export const createEvent = (event, drizzle) => {
 
     var state = drizzle.store.getState();
     const web3 = drizzle.web3;
-    const account = "0x0618479A6adE6fb3B498f1aE4914f8C251Ce3e20";
+    const account = state.accounts[0];
 
     let newEvent = createNewEvent(user, photoURL, event, account);
 

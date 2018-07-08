@@ -10,7 +10,7 @@ contract StubToken is ERC721Token, Ownable {
 
     }
 
-    event NewEvent(uint _eventId);
+    event NewEvent(uint _eventId, bytes32 _id);
 
     struct Ticket {
         uint eventId;
@@ -126,12 +126,13 @@ contract StubToken is ERC721Token, Ownable {
         });
         uint _eventId = events.push(_event) - 1;
         eventRefIdToEvent[_event.id] = _eventId;
-        emit NewEvent(_eventId);
+        emit NewEvent(_eventId, _id);
     }
 
     /// @dev Used to purchase a ticket for a given event
-    /// @param _eventId ID of the event
-    function purchaseTicket(uint _eventId) public payable {
+    /// @param _id byte ID of the event
+    function purchaseTicket(bytes32 _id) public payable {
+        uint _eventId = eventRefIdToEvent[_id];
         Event memory _event = events[_eventId];
         uint sellingPrice = _event.price;
 

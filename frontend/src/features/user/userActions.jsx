@@ -143,7 +143,7 @@ export const setMainPhoto = photo => async (dispatch, getState) => {
   }
 };
 
-export const goingToEvent = event => async (
+export const goingToEvent = (event, drizzle) => async (
   dispatch,
   getState,
 ) => {
@@ -158,7 +158,21 @@ export const goingToEvent = event => async (
     displayName: profile.displayName,
     host: false
   };
+
+  var state = drizzle.store.getState();
+  const web3 = drizzle.web3;
+  const account = state.accounts[0];
+
   try {
+
+    drizzle.contracts["StubToken"].methods["purchaseTicket"].cacheSend(
+      web3.utils.stringToHex(event.id),
+      {
+        from: account,
+        value: web3.utils.toWei(event.ticketprice)
+      }
+    );
+
     let eventDocRef = firestore.collection('events').doc(event.id);
     let eventAttendeeDocRef = firestore.collection('event_attendee').doc(`${event.id}_${user.uid}`);
 

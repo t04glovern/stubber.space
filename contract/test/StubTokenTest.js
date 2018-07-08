@@ -25,8 +25,9 @@ contract("Stub token", accounts => {
         1531222200,
         20
       )
+      let id = events.logs[0].args._id;
       let eventid = events.logs[0].args._eventId;
-      let token = await instance.purchaseTicket(eventid, {
+      let token = await instance.purchaseTicket(id, {
         value: ether(0.18850604858538503)
       });
 

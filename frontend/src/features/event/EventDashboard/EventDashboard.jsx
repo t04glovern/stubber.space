@@ -8,7 +8,7 @@ import { drizzleConnect } from "drizzle-react";
 import StubEventList from "../EventList/StubEventList";
 import { getEventsForDashboard } from "../eventActions";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import EventActivity from "../EventActivity/EventActivity";
+// import EventActivity from "../EventActivity/EventActivity";
 
 const query = [
   {
@@ -96,7 +96,7 @@ class EventDashboard extends Component {
   render() {
     const {
       loading,
-      activities,
+      // activities,
       StubToken,
       accounts
     } = this.props;
@@ -111,7 +111,7 @@ class EventDashboard extends Component {
         : "Loading...";
     return (
       <Grid>
-        <Grid.Column width={10}>
+        <Grid.Column width={16}>
           {stubEvents !== "Loading..." && (
             <StubEventList stubEvents={stubEvents} web3={this.web3} />
           )}
@@ -124,13 +124,13 @@ class EventDashboard extends Component {
             />
           </div> */}
         </Grid.Column>
-        <Grid.Column width={6}>
+        {/* <Grid.Column width={6}>
           <EventActivity
             activities={activities}
             contextRef={this.state.handleContextRef}
           />
-        </Grid.Column>
-        <Grid.Column width={10}>
+        </Grid.Column> */}
+        <Grid.Column width={16}>
           <Loader active={loading} />
         </Grid.Column>
       </Grid>
