@@ -35,7 +35,7 @@ const PeopleDashboard = ({ followings, followers }) => {
         <Segment>
           <Header dividing content="People following me" />
           <Card.Group itemsPerRow={8} stackable>
-            {followers &&
+            {followers && followings &&
               followers.map(follower => (
                 <PersonCard key={follower.id} user={follower} />
               ))}
@@ -44,7 +44,7 @@ const PeopleDashboard = ({ followings, followers }) => {
         <Segment>
           <Header dividing content="People I'm following" />
           <Card.Group itemsPerRow={8} stackable>
-            {followers &&
+            {followers && followings &&
               followings.map(following => (
                 <PersonCard key={following.id} user={following} />
               ))}

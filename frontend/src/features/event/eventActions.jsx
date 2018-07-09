@@ -7,6 +7,7 @@ import {
 } from "../async/asyncActions";
 import { createNewEvent } from "../../app/common/util/helpers";
 import moment from "moment";
+import { openModal } from "../modals/modalActions";
 import firebase from "../../app/config/firebase";
 import compareAsc from "date-fns/compare_asc";
 
@@ -33,6 +34,8 @@ export const createEvent = (event, drizzle) => {
           eventDate: event.date,
           host: true
         });
+
+        dispatch(openModal("PendingTransactionModal"));
 
         drizzle.contracts["StubToken"].methods["createEvent"].cacheSend(
           account,

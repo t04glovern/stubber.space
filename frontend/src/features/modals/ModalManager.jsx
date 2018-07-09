@@ -4,12 +4,14 @@ import TestModal from "./TestModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import UnauthModal from "./UnauthModal";
+import PendingTransactionModal from "./PendingTransactionModal";
 
 const modalLookup = {
   TestModal,
   LoginModal,
   RegisterModal,
-  UnauthModal
+  UnauthModal,
+  PendingTransactionModal
 };
 
 const mapState = state => ({

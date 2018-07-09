@@ -21,6 +21,7 @@ import SelectInput from "../../../app/common/form/SelectInput";
 import DateInput from "../../../app/common/form/DateInput";
 import PlaceInput from "../../../app/common/form/PlaceInput";
 import NumberInput from "../../../app/common/form/NumberInput";
+import DummyEvent from "./DummyEvent";
 
 const mapState = state => {
   let event = {};
@@ -50,7 +51,11 @@ const category = [
   { key: "dance", text: "Dance", value: "dance" },
   { key: "easylistening", text: "Easy Listening", value: "easylistening" },
   { key: "electronic", text: "Electronic", value: "electronic" },
-  { key: "europeanfolkpop", text: "European (Folk Pop)", value: "europeanfolkpop" },
+  {
+    key: "europeanfolkpop",
+    text: "European (Folk Pop)",
+    value: "europeanfolkpop"
+  },
   { key: "hiphoprap", text: "Hip Hop / Rap", value: "hiphoprap" },
   { key: "indiepop", text: "Indie Pop", value: "indiepop" },
   { key: "gospel", text: "Gospel", value: "gospel" },
@@ -64,13 +69,17 @@ const category = [
   { key: "reggae", text: "Reggae", value: "reggae" },
   { key: "rock", text: "Rock", value: "rock" },
   { key: "singerfolk", text: "Singer (Folk)", value: "singerfolk" },
-  { key: "worldmusicbeats", text: "World Music / Beats", value: "worldmusicbeats" }
+  {
+    key: "worldmusicbeats",
+    text: "World Music / Beats",
+    value: "worldmusicbeats"
+  }
 ];
 
 const validate = combineValidators({
   title: composeValidators(
     isRequired({ message: "The event title is required" }),
-    hasLengthBetween(4,30)({
+    hasLengthBetween(4, 30)({
       message: "Title must be less than 30 characters"
     })
   )(),
@@ -167,7 +176,7 @@ class EventForm extends Component {
       cancelToggle
     } = this.props;
     return (
-      <Grid>
+      <Grid stackable>
         <Script
           url="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSElKjzs646chUBuPWJwuNdtEzCST1j3A&libraries=places"
           onLoad={this.handleScriptLoaded}
@@ -271,6 +280,9 @@ class EventForm extends Component {
               )}
             </Form>
           </Segment>
+        </Grid.Column>
+        <Grid.Column width={6}>
+          <DummyEvent />
         </Grid.Column>
       </Grid>
     );
