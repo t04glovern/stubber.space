@@ -1,10 +1,11 @@
+require("dotenv").config()
 require("babel-register")({
   ignore: /node_modules\/(?!zeppelin-solidity)/
 });
 require("babel-polyfill");
 
 var PrivateKeyProvider = require("truffle-privatekey-provider");
-const privKey = "b7772620229ebac5e237bf982d28def601108e3f56cd795568104c5c26dfa6c7"
+const privKey = process.env.PRIV_KEY;
 
 module.exports = {
   migrations_directory: "./migrations",
@@ -14,17 +15,17 @@ module.exports = {
       port: 8545,
       network_id: "*" // Match any network id
     },
-    ropsten: { // 0xa92439b2959ced85f24a34bf08036fc21467cf00
-      provider: function() {
-        return new PrivateKeyProvider(privKey, "https://ropsten.infura.io/1LPE9dOwZvYF9JQOPGHz");
+  ropsten: {
+    provider: function () {
+      return new PrivateKeyProvider(privKey, "https://ropsten.infura.io/" + process.env.INFURA_TOKEN);
       },
       gas: 4500000,
       gasPrice: 21000000000,
       network_id: '3',
     },
-    rinkeby: { // 0x8697ccad2732b62c0aa394352dc8353e8334d442
-      provider: function() {
-        return new PrivateKeyProvider(privKey, "https://rinkeby.infura.io/1LPE9dOwZvYF9JQOPGHz")
+  rinkeby: {
+    provider: function () {
+      return new PrivateKeyProvider(privKey, "https://rinkeby.infura.io/" + process.env.INFURA_TOKEN);
       },
       network_id: '4'
     }

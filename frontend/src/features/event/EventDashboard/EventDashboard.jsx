@@ -8,7 +8,7 @@ import { drizzleConnect } from "drizzle-react";
 import StubEventList from "../EventList/StubEventList";
 import { getEventsForDashboard } from "../eventActions";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-// import EventActivity from "../EventActivity/EventActivity";
+import EventActivity from "../EventActivity/EventActivity";
 
 const query = [
   {
@@ -94,26 +94,23 @@ class EventDashboard extends Component {
     });
 
   render() {
-    const {
-      loading,
-      // activities,
-      StubToken,
-      accounts
-    } = this.props;
+    const { loading, activities, StubToken, accounts } = this.props;
     // const { moreEvents, loadedEvents } = this.state;
     if (this.state.loadingDrizzle) return <LoadingComponent inverted={true} />;
-    var storedData = this.contracts["StubToken"].methods["getAllEvents"].cacheCall(
-      { from: accounts[0] }
-    );
+    var storedData = this.contracts["StubToken"].methods[
+      "getAllEvents"
+    ].cacheCall({ from: accounts[0] });
     var stubEvents =
       StubToken.synced && StubToken["getAllEvents"][storedData]
         ? StubToken["getAllEvents"][storedData].value
         : "Loading...";
     return (
-      <Grid>
-        <Grid.Column width={16}>
+      <Grid stackable>
+        <Grid.Column width={12}>
           {stubEvents !== "Loading..." && (
-            <StubEventList stubEvents={stubEvents} web3={this.web3} />
+            <div ref={this.handleContextRef}>
+              <StubEventList stubEvents={stubEvents} web3={this.web3} />
+            </div>
           )}
           {/* <div ref={this.handleContextRef}>
             <EventList
@@ -124,12 +121,12 @@ class EventDashboard extends Component {
             />
           </div> */}
         </Grid.Column>
-        {/* <Grid.Column width={6}>
+        <Grid.Column width={4}>
           <EventActivity
             activities={activities}
             contextRef={this.state.handleContextRef}
           />
-        </Grid.Column> */}
+        </Grid.Column>
         <Grid.Column width={16}>
           <Loader active={loading} />
         </Grid.Column>
@@ -146,7 +143,4 @@ EventDashboard.contextTypes = {
 export default connect(
   mapState,
   actions
-)(
-  drizzleConnect(EventDashboard, mapStateToProps),
-  firestoreConnect(query)(EventDashboard)
-);
+)(drizzleConnect(firestoreConnect(query)(EventDashboard), mapStateToProps));

@@ -4,7 +4,7 @@ import EventActivityItem from "./EventActivityItem";
 
 const EventActivity = ({ activities, contextRef }) => {
   return (
-    <Sticky context={contextRef} offset={100}>
+    <Sticky context={contextRef} offset={-100}>
       <Header attached="top" content="Recent Activity" />
       <Segment>
         <Feed>

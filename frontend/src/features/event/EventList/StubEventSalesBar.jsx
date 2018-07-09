@@ -5,7 +5,7 @@ class StubEventSalesBar extends Component {
   render() {
     const { sales, salesCap } = this.props;
     return (
-        <Progress percent={sales / salesCap * 100} indicating>
+        <Progress percent={sales / salesCap * 100} indicating size='medium'>
         </Progress>
     );
   }

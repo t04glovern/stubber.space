@@ -9,12 +9,11 @@
 
 This repository houses the Stubber ticket sale and management platform. It has been built using Ethereum smart contracts.
 
+Code within this root folder is for both the Stubber contract and a lightweight frontend that can be used to manage the stubber contract without runnning the full frontend application.
+
 ## Networks
 
-- ropsten : [0xa92439b2959ced85f24a34bf08036fc21467cf00](https://ropsten.etherscan.io/address/0xa92439b2959ced85f24a34bf08036fc21467cf00)
-
-- rinkeby : [0x8697ccad2732b62c0aa394352dc8353e8334d442](https://rinkeby.etherscan.io/address/0x8697ccad2732b62c0aa394352dc8353e8334d442)
-
+- ropsten : [0xac1933bc652baa7b888fc03c82397d99ce26be82](https://ropsten.etherscan.io/address/0xac1933bc652baa7b888fc03c82397d99ce26be82)
 
 ## Developing This Contract
 
@@ -24,7 +23,7 @@ Install and run Ganache CLI (formally you would have used TestRPC). Alternativel
 
 ```
 $ npm install -g ganache-cli
-$ ganache-cli -p 7545
+$ ganache-cli -p 8545
 ```
 
 Navigate into the root of this project and install truffle (if you haven't already got it). Run the truffle test command to compile and test the contracts.
@@ -51,7 +50,7 @@ The configuration for running the network locally using truffle is in the `truff
 To change the network address this Dapp connects to simple open up `src/js/app.js` and change the following line to point at your deployed verions of this repos contract
 
 ```javascript
-  StubTokenAddress: '0xa92439b2959ced85f24a34bf08036fc21467cf00',
+  StubTokenAddress: '0x000...',
 ```
 
 ## Attribution

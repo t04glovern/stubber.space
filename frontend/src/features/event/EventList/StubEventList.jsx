@@ -20,12 +20,12 @@ class EventList extends Component {
     }
 
     return (
-      <Grid.Row columns={3}>
+      <Grid stackable columns={2}>
         {stubEventMap &&
           stubEventMap.map(stubEvent => (
             <StubEventListItem key={stubEvent.id} stubEvent={stubEvent} />
           ))}
-      </Grid.Row>
+      </Grid>
     );
   }
 }

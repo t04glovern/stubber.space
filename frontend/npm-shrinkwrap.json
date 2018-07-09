@@ -3294,10 +3294,18 @@
       }
     },
     "drizzle": {
-      "version": "1.2.1",
-      "resolved": "https://registry.npmjs.org/drizzle/-/drizzle-1.2.1.tgz",
-      "integrity": "sha512-aHfjI3TmgW42aHRsTRiLyet7VltvsLU5Ax+CtoqGouSW4JVzBImWpvyacNGeAFZjauLhwOV2RbIYdIEGcPu4Kg==",
-      "dev": true
+      "version": "1.2.2",
+      "resolved": "https://registry.npmjs.org/drizzle/-/drizzle-1.2.2.tgz",
+      "integrity": "sha512-3yy4BzU3M/aDf+ENBvczTqYiR7urJH/T7A4DlQ9f8eOWMP0T4RyvEGt6KfFV5h6K83RFVnETT9GTJBd4uymXSA==",
+      "dev": true,
+      "requires": {
+        "deepmerge": "^2.1.1",
+        "eth-block-tracker-es5": "^2.3.2",
+        "is-plain-object": "^2.0.4",
+        "redux": "^4.0.0",
+        "redux-saga": "^0.16.0",
+        "web3": "^1.0.0-beta.34"
+      }
     },
     "drizzle-react": {
       "version": "1.1.1",
