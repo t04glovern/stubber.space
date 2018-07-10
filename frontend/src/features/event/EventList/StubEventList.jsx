@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 import StubEventListItem from "./StubEventListItem";
 
-class EventList extends Component {
+class StubEventList extends Component {
   render() {
     const { stubEvents, web3 } = this.props;
 
@@ -30,4 +30,4 @@ class EventList extends Component {
   }
 }
 
-export default EventList;
+export default StubEventList;

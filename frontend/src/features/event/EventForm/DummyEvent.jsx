@@ -22,7 +22,7 @@ class DummyEvent extends Component {
           <Segment>
             <Item.Group>
               <Item>
-                <Item.Image size="tiny" circular src="assets/user.png" />
+                <Item.Image size="tiny" circular src="/assets/user.png" />
                 <Item.Content>
                   <Item.Header>
                     <i>Event Title</i>
@@ -44,13 +44,13 @@ class DummyEvent extends Component {
           <Segment secondary>
             <List horizontal>
               <List.Item>
-                <Image size="mini" circular src="assets/user.png" />
+                <Image size="mini" circular src="/assets/user.png" />
               </List.Item>
               <List.Item>
-                <Image size="mini" circular src="assets/user.png" />
+                <Image size="mini" circular src="/assets/user.png" />
               </List.Item>
               <List.Item>
-                <Image size="mini" circular src="assets/user.png" />
+                <Image size="mini" circular src="/assets/user.png" />
               </List.Item>
             </List>
           </Segment>

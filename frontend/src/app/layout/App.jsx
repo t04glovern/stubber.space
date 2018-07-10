@@ -25,6 +25,11 @@ const AsyncEventDashboard = Loadable({
   loading: LoadingComponent
 });
 
+const AsyncTicketPage = Loadable({
+  loader: () => import("../../features/ticket/TicketPage/TicketPage"),
+  loading: LoadingComponent
+});
+
 const AsyncSettingsDashboard = Loadable({
   loader: () => import("../../features/user/Settings/SettingsDashboard"),
   loading: LoadingComponent
@@ -72,6 +77,7 @@ class App extends Component {
               <Container className="main">
                 <Switch>
                   <Route path="/events" component={AsyncEventDashboard} />
+                  <Route path="/tickets" component={AsyncTicketPage} />
                   <Route path="/event/:id" component={AsyncEventDetailedPage} />
                   <Route
                     path="/manage/:id"

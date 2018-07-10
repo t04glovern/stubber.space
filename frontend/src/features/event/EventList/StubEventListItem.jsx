@@ -4,15 +4,12 @@ import {
   Segment,
   Icon,
   Label,
-  List,
   Item,
   Grid,
   Popup
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import format from "date-fns/format";
-import EventListAttendee from "./EventListAttendee";
-import { objectToArray } from "../../../app/common/util/helpers";
 
 class StubEventListItem extends Component {
   render() {
@@ -73,14 +70,6 @@ class StubEventListItem extends Component {
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          </Segment>
-          <Segment secondary>
-            <List horizontal>
-              {stubEvent.attendees &&
-                objectToArray(stubEvent.attendees).map(attendee => (
-                  <EventListAttendee key={attendee.id} attendee={attendee} />
-                ))}
-            </List>
           </Segment>
           <Segment clearing>
             <Button

@@ -42,6 +42,7 @@ class NavBar extends Component {
             Stubber
           </Menu.Item>
           <Menu.Item as={NavLink} to="/events" name="Events" />
+          <Menu.Item as={NavLink} to="/tickets" name="Tickets" />
           {authenticated && (
             <Menu.Item as={NavLink} to="/people" name="People" />
           )}

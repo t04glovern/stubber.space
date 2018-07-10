@@ -1,6 +1,6 @@
 import React from "react";
 import { Segment, Image, Item, Header, Button, Label } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import format from "date-fns/format";
 
 const eventImageStyle = {
@@ -103,11 +103,11 @@ const EventDetailedHeader = ({
           </div>
         )}
 
-        {isHost && (
+        {/* {isHost && (
           <Button as={Link} to={`/manage/${event.id}`} color="orange">
             Manage Event
           </Button>
-        )}
+        )} */}
       </Segment>
     </Segment.Group>
   );
