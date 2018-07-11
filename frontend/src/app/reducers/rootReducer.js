@@ -8,7 +8,6 @@ import eventReducer from "../../features/event/eventReducer";
 import modalReducer from "../../features/modals/modalReducer";
 import authReducer from "../../features/auth/authReducer";
 import asyncReducer from "../../features/async/asyncReducer";
-import ticketReducer from "../../features/ticket/ticketReducer";
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
@@ -19,8 +18,7 @@ const rootReducer = combineReducers({
   modals: modalReducer,
   auth: authReducer,
   async: asyncReducer,
-  toastr: toastrReducer,
-  tickets: ticketReducer
+  toastr: toastrReducer
 });
 
 export default rootReducer;
