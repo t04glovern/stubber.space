@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Header } from "semantic-ui-react";
 import TicketListItem from "./TicketListItem";
 
 class TicketList extends Component {
@@ -15,10 +15,10 @@ class TicketList extends Component {
 
     return (
       <Grid.Row stretched>
-        {ticketMap &&
+        {ticketMap && ticketMap.length > 0 ?
           ticketMap.map(ticket => (
             <TicketListItem key={ticket.id} ticket={ticket} />
-          ))}
+          )) : <Header content="You don't own any tickets yet!" />}
       </Grid.Row>
     );
   }

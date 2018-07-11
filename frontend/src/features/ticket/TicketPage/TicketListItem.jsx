@@ -51,7 +51,7 @@ class TicketListItem extends Component {
           : "Loading...";
     }
     return (
-      <Segment.Group style={{background: "purple"}}>
+      <Segment.Group style={{ background: "purple" }}>
         {stubTicket &&
           stubTicket !== "Loading..." && (
             <Segment>
@@ -65,7 +65,8 @@ class TicketListItem extends Component {
                   <Card.Meta>
                     <Popup
                       trigger={
-                        <Label size="small"
+                        <Label
+                          size="small"
                           href={`https://rinkeby.etherscan.io/address/${
                             stubTicket.artist
                           }`}
