@@ -81,7 +81,7 @@ function loadEventsFromJson() {
 
 var App = {
   contracts: {},
-  StubTokenAddress: '0xac1933bc652baa7b888fc03c82397d99ce26be82',
+  StubTokenAddress: '0xa8a084c011a281f88540bcea22df89c5a4625fb7',
 
   init() {
     //loadEventsFromJson();

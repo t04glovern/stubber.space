@@ -41,6 +41,8 @@ export const createEvent = (event, drizzle, file, fileName) => {
           host: true
         });
 
+        dispatch(openModal("PendingTransactionModal"));
+
         let path = `${createdEvent.id}/event_images`;
         // upload the file to fb storage
         let uploadedFile = await firebase.uploadFile(path, file, null, options);
@@ -50,8 +52,6 @@ export const createEvent = (event, drizzle, file, fileName) => {
         await firestore.update(`events/${createdEvent.id}`, {
           photoURL: downloadURL
         });
-
-        dispatch(openModal("PendingTransactionModal"));
 
         drizzle.contracts["StubToken"].methods["createEvent"].cacheSend(
           account,
@@ -168,12 +168,12 @@ export const getEventsForDashboard = lastEvent => async (
       ? (query = eventsRef
           // .where("date", ">=", today)
           .orderBy("date")
-          .startAfter(startAfter)
-          .limit(2))
+          .startAfter(startAfter))
+          // .limit(2))
       : (query = eventsRef
           // .where("date", ">=", today)
-          .orderBy("date")
-          .limit(2));
+          .orderBy("date"));
+          // .limit(2));
 
     let querySnap = await query.get();
 
