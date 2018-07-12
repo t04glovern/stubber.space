@@ -1,6 +1,7 @@
 import React from "react";
 import { Segment, Image, Item, Header, Button, Label } from "semantic-ui-react";
 // import { Link } from "react-router-dom";
+import LazyLoad from "react-lazyload";
 import format from "date-fns/format";
 
 const eventImageStyle = {
@@ -34,11 +35,15 @@ const EventDetailedHeader = ({
   return (
     <Segment.Group>
       <Segment basic attached="top" style={{ padding: "0" }}>
-        <Image
-          src={`/assets/categoryImages/${event.category}.jpg` && `/assets/categoryImages/music.jpg`}
-          fluid
-          style={eventImageStyle}
-        />
+        <LazyLoad
+          placeholder={<Image src="/assets/categoryImages/music.jpg" />}
+        >
+          <Image
+            fluid
+            style={eventImageStyle}
+            src={event.photoURL || `/assets/categoryImages/music.jpg`}
+          />
+        </LazyLoad>
 
         <Segment basic style={eventImageTextStyle}>
           <Item.Group>
@@ -64,7 +69,10 @@ const EventDetailedHeader = ({
           <div>
             {isGoing &&
               !event.cancelled && (
-                <Button color="green" disabled /*onClick={() => cancelGoingToEvent(event)}*/>
+                <Button
+                  color="green"
+                  disabled /*onClick={() => cancelGoingToEvent(event)}*/
+                >
                   Attending
                 </Button>
               )}
