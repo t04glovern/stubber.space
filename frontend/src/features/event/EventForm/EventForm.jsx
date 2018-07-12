@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withFirestore } from "react-redux-firebase";
 import { reduxForm, Field } from "redux-form";
+import { toastr } from "react-redux-toastr";
+import Dropzone from "react-dropzone";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Script from "react-load-script";
 import {
@@ -13,7 +17,15 @@ import {
   hasLengthGreaterThan,
   hasLengthBetween
 } from "revalidate";
-import { Segment, Form, Button, Grid, Header } from "semantic-ui-react";
+import {
+  Segment,
+  Form,
+  Button,
+  Grid,
+  Header,
+  Icon,
+  Image
+} from "semantic-ui-react";
 import { createEvent, updateEvent, cancelToggle } from "../eventActions";
 import TextInput from "../../../app/common/form/TextInput";
 import TextArea from "../../../app/common/form/TextArea";
@@ -108,7 +120,11 @@ class EventForm extends Component {
   state = {
     cityLatLng: {},
     venueLatLng: {},
-    scriptLoaded: false
+    scriptLoaded: false,
+    files: [],
+    fileName: "",
+    cropResult: null,
+    image: {}
   };
 
   async componentDidMount() {
@@ -161,9 +177,50 @@ class EventForm extends Component {
       await this.props.updateEvent(values);
       this.props.history.goBack();
     } else {
-      this.props.createEvent(values, this.drizzle);
+      this.props.createEvent(values, this.drizzle, this.state.image, this.state.fileName);
       this.props.history.push("/events");
     }
+  };
+
+  uploadImage = async () => {
+    try {
+      await this.props.uploadProfileImage(
+        this.state.image,
+        this.state.fileName
+      );
+      this.cancelCrop();
+      toastr.success("Success!", "Photo has been uploaded");
+    } catch (error) {
+      toastr.error("Oops", error.message);
+    }
+  };
+
+  cancelCrop = () => {
+    this.setState({
+      files: [],
+      image: {}
+    });
+  };
+
+  cropImage = () => {
+    if (typeof this.refs.cropper.getCroppedCanvas() === "undefined") {
+      return;
+    }
+
+    this.refs.cropper.getCroppedCanvas().toBlob(blob => {
+      let imageUrl = URL.createObjectURL(blob);
+      this.setState({
+        cropResult: imageUrl,
+        image: blob
+      });
+    }, "image/jpeg");
+  };
+
+  onDrop = files => {
+    this.setState({
+      files,
+      fileName: files[0].name
+    });
   };
 
   render() {
@@ -181,6 +238,48 @@ class EventForm extends Component {
           url="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSElKjzs646chUBuPWJwuNdtEzCST1j3A&libraries=places"
           onLoad={this.handleScriptLoaded}
         />
+
+        <Grid.Row width={10} columns={3}>
+          <Grid.Column width={3}>
+            <Header color="violet" sub content="Step 1 - Add Photo" />
+            <Dropzone onDrop={this.onDrop} multiple={false}>
+              <div style={{ paddingTop: "30px", textAlign: "center" }}>
+                <Icon name="upload" size="huge" />
+                <Header content="Drop image here or click to add" />
+              </div>
+            </Dropzone>
+          </Grid.Column>
+          <Grid.Column width={3}>
+            <Header sub color="violet" content="Step 2 - Resize image" />
+            {this.state.files[0] && (
+              <Cropper
+                style={{ height: 200, width: 112 }}
+                ref="cropper"
+                src={this.state.files[0].preview}
+                aspectRatio={16 / 9}
+                viewMode={0}
+                dragMode="move"
+                guides={false}
+                scalable={true}
+                cropBoxMovable={true}
+                cropBoxResizable={true}
+                crop={this.cropImage}
+              />
+            )}
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Header sub color="violet" content="Step 3 - Preview and Upload" />
+            {this.state.files[0] && (
+              <div>
+                <Image
+                  style={{ minHeight: "200px", minWidth: "112px" }}
+                  src={this.state.cropResult}
+                />
+              </div>
+            )}
+          </Grid.Column>
+        </Grid.Row>
+
         <Grid.Column width={10}>
           <Segment>
             <Header sub color="violet" content="Event Details" />

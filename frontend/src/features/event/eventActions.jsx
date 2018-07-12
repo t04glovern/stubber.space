@@ -7,12 +7,19 @@ import {
 } from "../async/asyncActions";
 import { createNewEvent } from "../../app/common/util/helpers";
 import moment from "moment";
+import cuid from "cuid";
 import { openModal } from "../modals/modalActions";
 import firebase from "../../app/config/firebase";
 import compareAsc from "date-fns/compare_asc";
 
-export const createEvent = (event, drizzle) => {
-  return async (dispatch, getState, { getFirestore }) => {
+export const createEvent = (event, drizzle, file, fileName) => {
+  return async (dispatch, getState, { getFirebase, getFirestore }) => {
+    const imageName = cuid();
+    const options = {
+      name: imageName
+    };
+
+    const firebase = getFirebase();
     const firestore = getFirestore();
     const user = firestore.auth().currentUser;
     const photoURL = getState().firebase.profile.photoURL;
@@ -26,13 +33,22 @@ export const createEvent = (event, drizzle) => {
     try {
       dispatch(asyncActionStart());
       if (state.drizzleStatus.initialized) {
-
         let createdEvent = await firestore.add(`events`, newEvent);
         await firestore.set(`event_attendee/${createdEvent.id}_${user.uid}`, {
           eventId: createdEvent.id,
           userUid: user.uid,
           eventDate: event.date,
           host: true
+        });
+
+        let path = `${createdEvent.id}/event_images`;
+        // upload the file to fb storage
+        let uploadedFile = await firebase.uploadFile(path, file, null, options);
+        // get url of image
+        let downloadURL = await uploadedFile.uploadTaskSnapshot.downloadURL;
+        // set the event photo
+        await firestore.update(`events/${createdEvent.id}`, {
+          photoURL: downloadURL
         });
 
         dispatch(openModal("PendingTransactionModal"));
