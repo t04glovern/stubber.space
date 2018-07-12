@@ -13,12 +13,19 @@ import format from "date-fns/format";
 
 class StubEventListItem extends Component {
   render() {
-    const { stubEvent } = this.props;
+    const { stubEvent, events } = this.props;
+    let photo;
+    events.forEach(event => {
+      if (event.id === stubEvent.id) {
+        photo = event.photoURL
+      }
+    });
+
     let eventDate = new Date(Number(stubEvent.time));
     return (
       <Grid.Column>
         <Card fluid>
-          <Image src="/assets/categoryImages/culture.jpg" />
+          <Image src={photo || `/assets/categoryImages/music.jpg`} />
           <Card.Content>
             <Card.Header as={Link} to={`/event/${stubEvent.id}`}>
               {stubEvent.name}
@@ -28,7 +35,7 @@ class StubEventListItem extends Component {
               <Popup
                 trigger={
                   <Label
-                    href={`https://rinkeby.etherscan.io/address/${
+                    href={`https://ropsten.etherscan.io/address/${
                       stubEvent.artist
                     }`}
                   >

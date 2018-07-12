@@ -4,7 +4,7 @@ import StubEventListItem from "./StubEventListItem";
 
 class StubEventList extends Component {
   render() {
-    const { stubEvents, web3 } = this.props;
+    const { stubEvents, web3, events } = this.props;
 
     let stubEventMap = [];
     for (var x = 0; x < stubEvents[0].length; x++) {
@@ -23,7 +23,7 @@ class StubEventList extends Component {
       <Grid stackable columns={3}>
         {stubEventMap &&
           stubEventMap.map(stubEvent => (
-            <StubEventListItem key={stubEvent.id} stubEvent={stubEvent} />
+            <StubEventListItem key={stubEvent.id} stubEvent={stubEvent} events={events} />
           ))}
       </Grid>
     );

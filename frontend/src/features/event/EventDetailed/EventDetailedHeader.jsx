@@ -80,23 +80,33 @@ const EventDetailedHeader = ({
             {!isGoing &&
               authenticated &&
               !event.cancelled && (
-                <Button
-                  loading={loading}
-                  onClick={() => goingToEvent(event, drizzle)}
-                  color="violet"
-                >
-                  Purchase Ticket
+                <Button as="div" labelPosition="right">
+                  <Button
+                    loading={loading}
+                    onClick={() => goingToEvent(event, drizzle)}
+                    color="violet"
+                  >
+                    Purchase Ticket
+                  </Button>
+                  <Label basic color="violet" pointing="left">
+                    {event.ticketprice} ETH
+                  </Label>
                 </Button>
               )}
 
             {!authenticated &&
               !event.cancelled && (
-                <Button
-                  loading={loading}
-                  onClick={() => openModal("UnauthModal")}
-                  color="violet"
-                >
-                  Purchase Ticket
+                <Button as="div" labelPosition="right">
+                  <Button
+                    loading={loading}
+                    onClick={() => openModal("UnauthModal")}
+                    color="violet"
+                  >
+                    Purchase Ticket
+                  </Button>
+                  <Label basic color="violet" pointing="left">
+                    {event.ticketprice} ETH
+                  </Label>
                 </Button>
               )}
 

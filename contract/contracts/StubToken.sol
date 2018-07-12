@@ -113,7 +113,7 @@ contract StubToken is ERC721Token, Ownable {
         uint _price, 
         uint _time, 
         uint _salesCap
-        ) public onlyOwner {
+        ) public {
         Event memory _event = Event({
             artist: _artist,
             id: _id,

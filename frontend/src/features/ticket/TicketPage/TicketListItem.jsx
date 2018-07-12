@@ -67,7 +67,7 @@ class TicketListItem extends Component {
                       trigger={
                         <Label
                           size="small"
-                          href={`https://rinkeby.etherscan.io/address/${
+                          href={`https://ropsten.etherscan.io/address/${
                             stubTicket.artist
                           }`}
                         >
