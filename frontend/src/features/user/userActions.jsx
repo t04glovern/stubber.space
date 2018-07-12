@@ -7,6 +7,7 @@ import {
   asyncActionFinish
 } from "../async/asyncActions";
 import firebase from "../../app/config/firebase";
+import { openModal } from "../modals/modalActions";
 import { FETCH_EVENTS } from "../event/eventConstants";
 
 export const updateProfile = user => async (
@@ -173,6 +174,8 @@ export const goingToEvent = (event, drizzle) => async (
       }
     );
 
+    dispatch(openModal("PendingPurchaseModal"));
+
     let eventDocRef = firestore.collection('events').doc(event.id);
     let eventAttendeeDocRef = firestore.collection('event_attendee').doc(`${event.id}_${user.uid}`);
 
@@ -189,7 +192,6 @@ export const goingToEvent = (event, drizzle) => async (
       })
     })
     dispatch(asyncActionFinish());
-    toastr.success("Success", "You have signed up to the event");
   } catch (error) {
     console.log(error);
     dispatch(asyncActionError());

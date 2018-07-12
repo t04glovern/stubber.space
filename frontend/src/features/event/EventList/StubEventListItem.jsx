@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import {
   Button,
-  Segment,
+  Card,
   Icon,
+  Image,
   Label,
-  Item,
   Grid,
   Popup
 } from "semantic-ui-react";
@@ -16,62 +16,40 @@ class StubEventListItem extends Component {
     const { stubEvent } = this.props;
     let eventDate = new Date(Number(stubEvent.time));
     return (
-      <Grid.Column width={8}>
-        <Segment.Group>
-          <Segment>
-            <Item.Group>
-              <Item>
-                <Item.Image size="tiny" circular src="/assets/user.png" />
-                <Item.Content>
-                  <Item.Header as={Link} to={`/event/${stubEvent.id}`}>
-                    {stubEvent.name}
-                  </Item.Header>
-                  <Item.Description>
-                    Hosted by{" "}
-                    <Popup
-                      trigger={
-                        <Label
-                          href={`https://rinkeby.etherscan.io/address/${
-                            stubEvent.artist
-                          }`}
-                        >
-                          {stubEvent.artist.substring(0, 12)}
-                          {"..."}
-                        </Label>
-                      }
-                      content={stubEvent.artist}
-                      position="bottom center"
-                      size="tiny"
-                    />
-                  </Item.Description>
-                  {stubEvent.cancelled && (
-                    <Label
-                      style={{ top: "-40px" }}
-                      ribbon="right"
-                      color="red"
-                      content="This event has been cancelled."
-                    />
-                  )}
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Segment>
-          <Segment>
-            <Grid columns={2}>
-              <Grid.Row width={16}>
-                <Grid.Column width={11}>
-                  <Icon name="clock" /> {format(eventDate, "ddd Do MMM")} at{" "}
-                  {format(eventDate, "h:mm A")}
-                </Grid.Column>
-                <Grid.Column width={5}>
-                  <Icon name="ticket" /> {stubEvent.sales}
-                  {" / "}
-                  {stubEvent.salesCap}
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Segment>
-          <Segment clearing>
+      <Grid.Column>
+        <Card fluid>
+          <Image src="/assets/categoryImages/culture.jpg" />
+          <Card.Content>
+            <Card.Header as={Link} to={`/event/${stubEvent.id}`}>
+              {stubEvent.name}
+            </Card.Header>
+            <Card.Meta>
+              Hosted by{" "}
+              <Popup
+                trigger={
+                  <Label
+                    href={`https://rinkeby.etherscan.io/address/${
+                      stubEvent.artist
+                    }`}
+                  >
+                    {stubEvent.artist.substring(0, 12)}
+                    {"..."}
+                  </Label>
+                }
+                content={stubEvent.artist}
+                position="top center"
+                size="tiny"
+              />
+            </Card.Meta>
+            <Card.Description>
+              <Icon name="clock" /> {format(eventDate, "ddd Do MMM")} at{" "}
+              {format(eventDate, "h:mm A")}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <Icon name="ticket" /> {stubEvent.sales}
+            {" / "}
+            {stubEvent.salesCap}
             <Button
               as={Link}
               to={`/event/${stubEvent.id}`}
@@ -79,8 +57,8 @@ class StubEventListItem extends Component {
               floated="right"
               content="View"
             />
-          </Segment>
-        </Segment.Group>
+          </Card.Content>
+        </Card>
       </Grid.Column>
     );
   }

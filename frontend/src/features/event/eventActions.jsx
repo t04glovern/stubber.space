@@ -55,7 +55,6 @@ export const createEvent = (event, drizzle) => {
         toastr.error("Oops", "Not connected to Web3");
       }
       dispatch(asyncActionFinish());
-      toastr.success("Success!", "Event has been created");
     } catch (error) {
       console.log(error);
       toastr.error("Oops", "Something went wrong");

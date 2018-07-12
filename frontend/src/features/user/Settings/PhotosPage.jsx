@@ -118,7 +118,7 @@ class PhotosPage extends Component {
     return (
       <Segment>
         <Header dividing size="large" content="Your Photos" />
-        <Grid>
+        <Grid stackable>
           <Grid.Row />
           <Grid.Column width={4}>
             <Header color="violet" sub content="Step 1 - Add Photo" />
@@ -180,7 +180,7 @@ class PhotosPage extends Component {
         <Divider />
         <Header sub color="violet" content="All Photos" />
 
-        <Card.Group itemsPerRow={5}>
+        <Card.Group itemsPerRow={3}>
           <Card>
             <Image src={profile.photoURL || "/assets/user.png"} />
             <Button positive>Main Photo</Button>

@@ -10,8 +10,8 @@ class StubEventList extends Component {
     for (var x = 0; x < stubEvents[0].length; x++) {
       stubEventMap[x] = {
         artist: stubEvents[0][x],
-        id: web3.utils.hexToAscii(stubEvents[1][x]).replace(/\0.*$/g,''),
-        name: web3.utils.hexToAscii(stubEvents[2][x]).replace(/\0.*$/g,''),
+        id: web3.utils.hexToAscii(stubEvents[1][x]).replace(/\0.*$/g, ""),
+        name: web3.utils.hexToAscii(stubEvents[2][x]).replace(/\0.*$/g, ""),
         price: web3.utils.fromWei(stubEvents[3][x]),
         time: stubEvents[4][x],
         sales: stubEvents[5][x],
@@ -20,7 +20,7 @@ class StubEventList extends Component {
     }
 
     return (
-      <Grid stackable columns={2}>
+      <Grid stackable columns={3}>
         {stubEventMap &&
           stubEventMap.map(stubEvent => (
             <StubEventListItem key={stubEvent.id} stubEvent={stubEvent} />

@@ -64,7 +64,7 @@ const EventDetailedHeader = ({
           <div>
             {isGoing &&
               !event.cancelled && (
-                <Button color="green" /*onClick={() => cancelGoingToEvent(event)}*/>
+                <Button color="green" disabled /*onClick={() => cancelGoingToEvent(event)}*/>
                   Attending
                 </Button>
               )}
@@ -108,6 +108,11 @@ const EventDetailedHeader = ({
             Manage Event
           </Button>
         )} */}
+        {isHost && (
+          <Button color="green" disabled>
+            Hosting
+          </Button>
+        )}
       </Segment>
     </Segment.Group>
   );

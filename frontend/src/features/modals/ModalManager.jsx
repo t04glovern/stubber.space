@@ -5,13 +5,15 @@ import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import UnauthModal from "./UnauthModal";
 import PendingTransactionModal from "./PendingTransactionModal";
+import PendingPurchaseModal from "./PendingPurchaseModal";
 
 const modalLookup = {
   TestModal,
   LoginModal,
   RegisterModal,
   UnauthModal,
-  PendingTransactionModal
+  PendingTransactionModal,
+  PendingPurchaseModal
 };
 
 const mapState = state => ({

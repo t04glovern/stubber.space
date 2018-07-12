@@ -38,7 +38,7 @@ class TicketPage extends Component {
         : "Loading...";
     return (
       <Grid stackable>
-        <Grid.Column width={8}>
+        <Grid.Column width={16}>
           {tickets &&
             tickets !== "Loading..." && <TicketList tickets={tickets} />}
         </Grid.Column>

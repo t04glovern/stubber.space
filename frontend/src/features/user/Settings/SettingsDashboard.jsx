@@ -27,7 +27,7 @@ const SettingsDashboard = ({
   updateProfile
 }) => {
   return (
-    <Grid>
+    <Grid stackable>
       <Grid.Column width={12}>
         <Switch>
           <Redirect exact from="/settings" to="/settings/basic" />
