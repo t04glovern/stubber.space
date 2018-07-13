@@ -1,63 +1,33 @@
 import React, { Component } from "react";
-import {
-  Button,
-  Segment,
-  Icon,
-  Image,
-  List,
-  Item,
-  Grid,
-  Header
-} from "semantic-ui-react";
+import { Button, Card, Icon, Image, Grid } from "semantic-ui-react";
 import format from "date-fns/format";
 
 class DummyEvent extends Component {
   render() {
     return (
       <Grid.Column width={8}>
-        <Segment>
-          <Header size="small" content="Example Event Layout" />
-        </Segment>
-        <Segment.Group>
-          <Segment>
-            <Item.Group>
-              <Item>
-                <Item.Image size="tiny" circular src="/assets/user.png" />
-                <Item.Content>
-                  <Item.Header>
-                    <i>Event Title</i>
-                  </Item.Header>
-                  <Item.Description>
-                    Hosted by <i>Artist Address</i>
-                  </Item.Description>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Segment>
-          <Segment>
-            <span>
+        <Card fluid>
+          <Image src="/assets/categoryImages/music.jpg" />
+          <Card.Content>
+            <Card.Header>
+              <i>Event Title</i>
+            </Card.Header>
+            <Card.Meta>
+              Hosted by <i>Artist Address</i>
+            </Card.Meta>
+            <Card.Description>
               <Icon name="clock" /> {format(new Date(), "dddd Do MMMM")} at{" "}
               {format(new Date(), "HH:mm")} |
               <Icon name="marker" /> <i>Event Venue</i>
-            </span>
-          </Segment>
-          <Segment secondary>
-            <List horizontal>
-              <List.Item>
-                <Image size="mini" circular src="/assets/user.png" />
-              </List.Item>
-              <List.Item>
-                <Image size="mini" circular src="/assets/user.png" />
-              </List.Item>
-              <List.Item>
-                <Image size="mini" circular src="/assets/user.png" />
-              </List.Item>
-            </List>
-          </Segment>
-          <Segment clearing>
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <Icon name="ticket" /> 12
+            {" / "}
+            56000
             <Button color="violet" floated="right" content="View" disabled />
-          </Segment>
-        </Segment.Group>
+          </Card.Content>
+        </Card>
       </Grid.Column>
     );
   }

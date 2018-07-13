@@ -10,7 +10,7 @@ const SignedInMenu = ({ signOut, profile, auth }) => {
         spaced="right"
         src={profile.photoURL || "/assets/user.png"}
       />
-      <Dropdown pointing="top left" text={profile.displayName}>
+      <Dropdown pointing="top right" text={profile.displayName}>
         <Dropdown.Menu>
           <Dropdown.Item
             as={Link}

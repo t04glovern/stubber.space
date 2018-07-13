@@ -21,8 +21,8 @@ contract StubToken is ERC721Token, Ownable {
         address artist;
         bytes32 id;
         bytes32 name;
-        uint locationLat;
-        uint locationLng;
+        bytes32 locationLat;
+        bytes32 locationLng;
         uint price;
         uint time;
         uint salesCap;
@@ -56,8 +56,8 @@ contract StubToken is ERC721Token, Ownable {
             address artist, 
             bytes32 id,
             bytes32 name, 
-            uint locationLat,
-            uint locationLng,
+            bytes32 locationLat,
+            bytes32 locationLng,
             uint price, 
             uint time, 
             uint sales, 
@@ -78,9 +78,10 @@ contract StubToken is ERC721Token, Ownable {
 
     function getTicketDetails(uint _ticketId) public view returns(
             address artist, 
+            bytes32 id,
             bytes32 name, 
-            uint locationLat,
-            uint locationLng,
+            bytes32 locationLat,
+            bytes32 locationLng,
             uint price, 
             uint time
         ) {
@@ -88,6 +89,7 @@ contract StubToken is ERC721Token, Ownable {
         Event memory _event = events[_ticket.eventId];
 
         artist = _event.artist;
+        id = _event.id;
         name = _event.name;
         locationLat = _event.locationLat;
         locationLng = _event.locationLng;
@@ -108,8 +110,8 @@ contract StubToken is ERC721Token, Ownable {
         address _artist, 
         bytes32 _id,
         bytes32 _name, 
-        uint _locationLat,
-        uint _locationLng,
+        bytes32 _locationLat,
+        bytes32 _locationLng,
         uint _price, 
         uint _time, 
         uint _salesCap

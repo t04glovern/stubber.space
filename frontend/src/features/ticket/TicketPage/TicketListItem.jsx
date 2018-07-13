@@ -57,10 +57,8 @@ class TicketListItem extends Component {
             <Segment>
               <Card fluid>
                 <Card.Content>
-                  <Card.Header>
-                    {this.web3.utils
-                      .hexToAscii(stubTicket.name)
-                      .replace(/\0.*$/g, "")}
+                  <Card.Header href={`/event/${this.web3.utils.hexToAscii(stubTicket.id).replace(/\0.*$/g, "")}`}>
+                    {this.web3.utils.hexToAscii(stubTicket.name).replace(/\0.*$/g, "")}
                   </Card.Header>
                   <Card.Meta>
                     <Popup

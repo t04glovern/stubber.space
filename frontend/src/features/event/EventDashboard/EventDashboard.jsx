@@ -105,7 +105,11 @@ class EventDashboard extends Component {
         <Grid.Column width={12}>
           {stubEvents !== "Loading..." && (
             <div ref={this.handleContextRef}>
-              <StubEventList stubEvents={stubEvents} web3={this.web3} events={this.state.loadedEvents} />
+              <StubEventList
+                stubEvents={stubEvents}
+                web3={this.web3}
+                events={this.state.loadedEvents}
+              />
             </div>
           )}
         </Grid.Column>

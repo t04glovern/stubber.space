@@ -10,6 +10,15 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import format from "date-fns/format";
+import compareAsc from "date-fns/compare_asc";
+
+const eventLabelStyle = {
+  as: "a",
+  color: "orange",
+  content: "Event has Ended",
+  icon: "ticket",
+  ribbon: true
+};
 
 class StubEventListItem extends Component {
   render() {
@@ -17,15 +26,19 @@ class StubEventListItem extends Component {
     let photo;
     events.forEach(event => {
       if (event.id === stubEvent.id) {
-        photo = event.photoURL
+        photo = event.photoURL;
       }
     });
 
     let eventDate = new Date(Number(stubEvent.time));
+    let eventOver = compareAsc(eventDate, Date.now());
     return (
       <Grid.Column>
         <Card fluid>
-          <Image src={photo || `/assets/categoryImages/music.jpg`} />
+          <Image
+            label={eventOver === -1 && eventLabelStyle}
+            src={photo || `/assets/categoryImages/music.jpg`}
+          />
           <Card.Content>
             <Card.Header as={Link} to={`/event/${stubEvent.id}`}>
               {stubEvent.name}

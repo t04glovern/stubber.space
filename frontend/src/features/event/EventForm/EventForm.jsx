@@ -63,11 +63,7 @@ const category = [
   { key: "dance", text: "Dance", value: "dance" },
   { key: "easylistening", text: "Easy Listening", value: "easylistening" },
   { key: "electronic", text: "Electronic", value: "electronic" },
-  {
-    key: "europeanfolkpop",
-    text: "European (Folk Pop)",
-    value: "europeanfolkpop"
-  },
+  { key: "europeanfolkpop", text: "European (Folk Pop)", value: "europeanfolkpop" },
   { key: "hiphoprap", text: "Hip Hop / Rap", value: "hiphoprap" },
   { key: "indiepop", text: "Indie Pop", value: "indiepop" },
   { key: "gospel", text: "Gospel", value: "gospel" },
@@ -81,11 +77,7 @@ const category = [
   { key: "reggae", text: "Reggae", value: "reggae" },
   { key: "rock", text: "Rock", value: "rock" },
   { key: "singerfolk", text: "Singer (Folk)", value: "singerfolk" },
-  {
-    key: "worldmusicbeats",
-    text: "World Music / Beats",
-    value: "worldmusicbeats"
-  }
+  { key: "worldmusicbeats", text: "World Music / Beats", value: "worldmusicbeats" }
 ];
 
 const validate = combineValidators({
@@ -177,7 +169,12 @@ class EventForm extends Component {
       await this.props.updateEvent(values);
       this.props.history.goBack();
     } else {
-      this.props.createEvent(values, this.drizzle, this.state.image, this.state.fileName);
+      this.props.createEvent(
+        values,
+        this.drizzle,
+        this.state.image,
+        this.state.fileName
+      );
       this.props.history.push("/events");
     }
   };
@@ -295,7 +292,7 @@ class EventForm extends Component {
                 type="text"
                 component={SelectInput}
                 options={category}
-                placeholder="What is your event about"
+                placeholder="Genre of Music"
               />
               <Field
                 name="description"

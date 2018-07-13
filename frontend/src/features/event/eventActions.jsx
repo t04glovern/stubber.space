@@ -57,8 +57,8 @@ export const createEvent = (event, drizzle, file, fileName) => {
           account,
           web3.utils.stringToHex(createdEvent.id),
           web3.utils.stringToHex(newEvent.title),
-          newEvent.venueLatLng.lat,
-          newEvent.venueLatLng.lng,
+          web3.utils.stringToHex(String(newEvent.venueLatLng.lat)),
+          web3.utils.stringToHex(String(newEvent.venueLatLng.lng)),
           web3.utils.toWei(newEvent.ticketprice),
           newEvent.dateEpoch,
           Number(newEvent.ticketcap),
@@ -151,31 +151,31 @@ export const getEventsForDashboard = lastEvent => async (
   dispatch,
   getState
 ) => {
-  let today = new Date(Date.now());
+  //let today = new Date(Date.now());
   const firestore = firebase.firestore();
-  const eventsRef = firestore.collection("events").where("date", ">=", today);
+  const eventsRef = firestore.collection("events")/*.where("date", ">=", today)*/;
   try {
     dispatch(asyncActionStart());
-    let startAfter =
-      lastEvent &&
-      (await firestore
-        .collection("events")
-        .doc(lastEvent.id)
-        .get());
-    let query;
+    // let startAfter =
+    //   lastEvent &&
+    //   (await firestore
+    //     .collection("events")
+    //     .doc(lastEvent.id)
+    //     .get());
+    // let query;
 
-    lastEvent
-      ? (query = eventsRef
-          // .where("date", ">=", today)
-          .orderBy("date")
-          .startAfter(startAfter))
-          // .limit(2))
-      : (query = eventsRef
-          // .where("date", ">=", today)
-          .orderBy("date"));
-          // .limit(2));
+    // lastEvent
+    //   ? (query = eventsRef
+    //       .where("date", ">=", today)
+    //       .orderBy("date"))
+    //       .startAfter(startAfter)
+    //       .limit(2)
+    //   : (query = eventsRef
+    //       .where("date", ">=", today)
+    //       .orderBy("date")
+    //       .limit(2));
 
-    let querySnap = await query.get();
+    let querySnap = await eventsRef.get();
 
     if (querySnap.docs.length === 0) {
       dispatch(asyncActionFinish());

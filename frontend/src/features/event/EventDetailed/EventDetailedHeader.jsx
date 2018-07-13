@@ -3,6 +3,7 @@ import { Segment, Image, Item, Header, Button, Label } from "semantic-ui-react";
 // import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 import format from "date-fns/format";
+import compareAsc from "date-fns/compare_asc";
 
 const eventImageStyle = {
   filter: "brightness(30%)"
@@ -29,8 +30,10 @@ const EventDetailedHeader = ({
   drizzle
 }) => {
   let eventDate;
+  let eventOver;
   if (event.date) {
     eventDate = event.date.toDate();
+    eventOver = compareAsc(eventDate, Date.now()) === -1 ? true : false;
   }
   return (
     <Segment.Group>
@@ -68,7 +71,8 @@ const EventDetailedHeader = ({
         {!isHost && (
           <div>
             {isGoing &&
-              !event.cancelled && (
+              !event.cancelled &&
+              !eventOver && (
                 <Button
                   color="green"
                   disabled /*onClick={() => cancelGoingToEvent(event)}*/
@@ -79,7 +83,8 @@ const EventDetailedHeader = ({
 
             {!isGoing &&
               authenticated &&
-              !event.cancelled && (
+              !event.cancelled &&
+              !eventOver && (
                 <Button as="div" labelPosition="right">
                   <Button
                     loading={loading}
@@ -95,7 +100,8 @@ const EventDetailedHeader = ({
               )}
 
             {!authenticated &&
-              !event.cancelled && (
+              !event.cancelled &&
+              !eventOver && (
                 <Button as="div" labelPosition="right">
                   <Button
                     loading={loading}
@@ -116,6 +122,15 @@ const EventDetailedHeader = ({
                   size="large"
                   color="red"
                   content="This event has been cancelled"
+                />
+              )}
+
+            {eventOver &&
+              !isHost && (
+                <Label
+                  size="large"
+                  color="orange"
+                  content="This event has finished"
                 />
               )}
           </div>

@@ -14,12 +14,12 @@ class TicketList extends Component {
     }
 
     return (
-      <Grid.Row stretched>
+      <Grid.Column>
         {ticketMap && ticketMap.length > 0 ?
           ticketMap.map(ticket => (
             <TicketListItem key={ticket.id} ticket={ticket} />
           )) : <Header content="You don't own any tickets yet!" />}
-      </Grid.Row>
+        </Grid.Column>
     );
   }
 }
