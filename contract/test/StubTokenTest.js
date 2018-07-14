@@ -1,5 +1,5 @@
-import assertRevert from "zeppelin-solidity/test/helpers/assertRevert";
-import ether from "zeppelin-solidity/test/helpers/ether";
+import assertRevert from "openzeppelin-solidity/test/helpers/assertRevert";
+import ether from "openzeppelin-solidity/test/helpers/ether";
 
 const StubToken = artifacts.require("StubToken");
 
