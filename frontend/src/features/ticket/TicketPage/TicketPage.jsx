@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Grid, Loader } from "semantic-ui-react";
 import { drizzleConnect } from "drizzle-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import MetaMaskConnect from "../../../app/layout/MetaMaskConnect";
 import TicketList from "./TicketList";
 
 const mapStateToProps = state => {
@@ -29,6 +30,7 @@ class TicketPage extends Component {
   render() {
     const { loading, StubToken, accounts, drizzleStatus } = this.props;
     if (!drizzleStatus.initialized) return <LoadingComponent inverted={true} />;
+    if (!accounts[0]) return <MetaMaskConnect inverted={true} />;
     var storedData = this.contracts["StubToken"].methods["ticketsOf"].cacheCall(
       accounts[0]
     );

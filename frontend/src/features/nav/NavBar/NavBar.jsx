@@ -17,7 +17,6 @@ const mapState = state => ({
 });
 
 class NavBar extends Component {
-
   handleSignIn = () => {
     this.props.openModal("LoginModal");
   };
@@ -42,7 +41,9 @@ class NavBar extends Component {
             Stubber
           </Menu.Item>
           <Menu.Item as={NavLink} to="/events" name="Events" />
-          <Menu.Item as={NavLink} to="/tickets" name="Tickets" />
+          {authenticated && (
+            <Menu.Item as={NavLink} to="/tickets" name="Tickets" />
+          )}
           {authenticated && (
             <Menu.Item as={NavLink} to="/people" name="People" />
           )}
@@ -77,9 +78,11 @@ class NavBar extends Component {
   }
 }
 
-export default withRouter(withFirebase(
-  connect(
-    mapState,
-    actions
-  )(NavBar)
-));
+export default withRouter(
+  withFirebase(
+    connect(
+      mapState,
+      actions
+    )(NavBar)
+  )
+);

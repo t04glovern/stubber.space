@@ -37,7 +37,7 @@ class StubEventListItem extends Component {
         <Card fluid>
           <Image
             label={eventOver === -1 && eventLabelStyle}
-            src={photo || `/assets/categoryImages/music.jpg`}
+            src={photo || `/assets/loading.jpg`}
           />
           <Card.Content>
             <Card.Header as={Link} to={`/event/${stubEvent.id}`}>

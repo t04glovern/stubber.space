@@ -20,6 +20,11 @@ const AsyncNavBar = Loadable({
   loading: LoadingComponent
 });
 
+const AsyncFootBar = Loadable({
+  loader: () => import("../../features/nav/FootBar/FootBar"),
+  loading: LoadingComponent
+});
+
 const AsyncEventDashboard = Loadable({
   loader: () => import("../../features/event/EventDashboard/EventDashboard"),
   loading: LoadingComponent
@@ -77,11 +82,14 @@ class App extends Component {
               <Container className="main">
                 <Switch>
                   <Route path="/events" component={AsyncEventDashboard} />
-                  <Route path="/tickets" component={AsyncTicketPage} />
                   <Route path="/event/:id" component={AsyncEventDetailedPage} />
                   <Route
                     path="/manage/:id"
                     component={UserIsAuthenticated(AsyncEventForm)}
+                  />
+                  <Route
+                    path="/tickets"
+                    component={UserIsAuthenticated(AsyncTicketPage)}
                   />
                   <Route
                     path="/people"
@@ -106,6 +114,7 @@ class App extends Component {
                   <Route component={AsyncNotFound} />
                 </Switch>
               </Container>
+              <AsyncFootBar />
             </div>
           )}
         />
