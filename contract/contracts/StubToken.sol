@@ -36,8 +36,17 @@ contract StubToken is ERC721Token, Ownable {
     mapping (uint => uint) private eventRevenue;
     mapping (bytes32 => uint) private eventRefIdToEvent;
 
+    /// @dev Modifier for checking artist ownership
     modifier onlyArtist(uint _eventId) {
         Event memory _event = events[_eventId];
+        require(msg.sender == _event.artist);
+        _;
+    }
+
+    /// @dev Modifier for checking artist ownership using byte32 id
+    modifier onlyArtistId(bytes32 _id) {
+        uint eventId = eventRefIdToEvent[_id];
+        Event memory _event = events[eventId];
         require(msg.sender == _event.artist);
         _;
     }
@@ -76,6 +85,8 @@ contract StubToken is ERC721Token, Ownable {
         salesCap = _event.salesCap;
     }
 
+    /// @dev Get viewer details for a given ticket
+    /// @param _ticketId The token ID of a given ticket
     function getTicketDetails(uint _ticketId) public view returns(
             address artist, 
             bytes32 id,
@@ -116,6 +127,10 @@ contract StubToken is ERC721Token, Ownable {
         uint _time, 
         uint _salesCap
         ) public {
+
+        // confirm we don't override the mapping for another event!!!
+        require(eventRefIdToEvent[_id] == 0);
+
         Event memory _event = Event({
             artist: _artist,
             id: _id,
@@ -228,6 +243,23 @@ contract StubToken is ERC721Token, Ownable {
 
         require(amount <= address(this).balance);
         eventRevenue[_eventId] = 0; // Empty event revenue
+
+        if (to == address(0)) {
+            owner.transfer(amount); // funds are put into owners wallet IF event was created wrong
+        } else {
+            to.transfer(amount);
+        }
+    }
+
+    /// @dev Returns the balance value for an event based on its external ID.
+    function withdrawBalanceId(bytes32 _id) public onlyArtistId(_id) {
+        uint eventId = eventRefIdToEvent[_id];
+        Event memory _event = events[eventId];
+        uint amount = eventRevenue[eventId];
+        address to = _event.artist;
+
+        require(amount <= address(this).balance);
+        eventRevenue[eventId] = 0; // Empty event revenue
 
         if (to == address(0)) {
             owner.transfer(amount); // funds are put into owners wallet IF event was created wrong
