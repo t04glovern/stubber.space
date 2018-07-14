@@ -25,14 +25,15 @@ const EventDetailedHeader = ({
   isGoing,
   goingToEvent,
   cancelGoingToEvent,
+  withdrawEventFunds,
   authenticated,
   openModal,
   drizzle
 }) => {
   let eventDate;
   let eventOver;
-  if (event.date) {
-    eventDate = event.date.toDate();
+  if (event.dateEpoch) {
+    eventDate = new Date(Number(event.dateEpoch));
     eventOver = compareAsc(eventDate, Date.now()) === -1 ? true : false;
   }
   return (
@@ -116,36 +117,42 @@ const EventDetailedHeader = ({
                 </Button>
               )}
 
-            {event.cancelled &&
-              !isHost && (
-                <Label
-                  size="large"
-                  color="red"
-                  content="This event has been cancelled"
-                />
-              )}
-
-            {eventOver &&
-              !isHost && (
-                <Label
-                  size="large"
-                  color="orange"
-                  content="This event has finished"
-                />
-              )}
+            {eventOver && (
+              <Label
+                size="large"
+                color="orange"
+                content="This event has finished"
+              />
+            )}
           </div>
         )}
 
-        {/* {isHost && (
-          <Button as={Link} to={`/manage/${event.id}`} color="orange">
-            Manage Event
-          </Button>
-        )} */}
-        {isHost && (
-          <Button color="green" disabled>
-            Hosting
-          </Button>
-        )}
+        {eventOver &&
+          isHost && (
+            <div>
+              <Label
+                size="large"
+                color="orange"
+                content="This event has finished"
+                disabled
+              />
+              <Button
+                floated="right"
+                color="green"
+                size="small"
+                onClick={() => withdrawEventFunds(event, drizzle)}
+              >
+                Withdraw Ticket Funds
+              </Button>
+            </div>
+          )}
+
+        {!eventOver &&
+          isHost && (
+            <Button color="green" disabled>
+              Hosting
+            </Button>
+          )}
       </Segment>
     </Segment.Group>
   );

@@ -199,6 +199,32 @@ export const goingToEvent = (event, drizzle) => async (
   }
 };
 
+export const withdrawEventFunds = (event, drizzle) => async (
+  dispatch,
+  getState,
+) => {
+  dispatch(asyncActionStart());
+  var state = drizzle.store.getState();
+  const web3 = drizzle.web3;
+  const account = state.accounts[0];
+
+  try {
+    drizzle.contracts["StubToken"].methods["withdrawBalanceId"].cacheSend(
+      web3.utils.stringToHex(event.id),
+      {
+        from: account
+      }
+    );
+
+    dispatch(openModal("PendingPurchaseModal"));
+    dispatch(asyncActionFinish());
+  } catch (error) {
+    console.log(error);
+    dispatch(asyncActionError());
+    toastr.error("Oops", "Problem withdrawing event funds");
+  }
+};
+
 export const cancelGoingToEvent = event => async (
   dispatch,
   getState,

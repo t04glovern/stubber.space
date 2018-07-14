@@ -14,7 +14,7 @@ import {
   objectToArray,
   createDataTree
 } from "../../../app/common/util/helpers";
-import { goingToEvent, cancelGoingToEvent } from "../../user/userActions";
+import { goingToEvent, cancelGoingToEvent, withdrawEventFunds } from "../../user/userActions";
 import { addEventComment } from "../eventActions";
 import { openModal } from "../../modals/modalActions";
 
@@ -40,7 +40,8 @@ const actions = {
   goingToEvent,
   cancelGoingToEvent,
   addEventComment,
-  openModal
+  openModal,
+  withdrawEventFunds
 };
 
 class EventDetailedPage extends Component {
@@ -80,6 +81,7 @@ class EventDetailedPage extends Component {
       goingToEvent,
       cancelGoingToEvent,
       addEventComment,
+      withdrawEventFunds,
       eventChat,
       requesting,
       match
@@ -109,6 +111,7 @@ class EventDetailedPage extends Component {
             isGoing={isGoing}
             goingToEvent={goingToEvent}
             cancelGoingToEvent={cancelGoingToEvent}
+            withdrawEventFunds={withdrawEventFunds}
             authenticated={authenticated}
             openModal={openModal}
             drizzle={this.drizzle}

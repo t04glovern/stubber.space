@@ -23,8 +23,8 @@ class EventDetailedInfo extends Component {
   render() {
     const { event } = this.props;
     let eventDate;
-    if (event.date) {
-      eventDate = event.date.toDate();
+    if (event.dateEpoch) {
+      eventDate = new Date(Number(event.dateEpoch));
     }
     return (
       <Segment.Group>
