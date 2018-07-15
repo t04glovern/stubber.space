@@ -1,29 +1,25 @@
-<div align = "center">
-    <h1><em>Stubber</em></h1>
-    <p>Digitally traceable ticket sales on the blockchain.</p>
-    <a href="https://www.ethereum.org/" target="_blank"><img src="https://img.shields.io/badge/Ethereum-ETH-727B9F.svg?longCache=true&style=flat-square" alt="Ethereum"></a>
-    <a href="https://solidity.readthedocs.io" target="_blank"><img src="https://img.shields.io/badge/Solidity-0.4.23-blue.svg?longCache=true&style=flat-square" alt="Solidity"></a>
-</div>
+# Stubber - Contract
 
-## About
+This part of the repo is responsible for development and deployment of the Stubber smart contract to the Ethereum blockchain.
 
-This repository houses the Stubber ticket sale and management platform. It has been built using Ethereum smart contracts.
+There is also a very small frontend application that was used during the initial development of the Stubber platform under the `src/` folder.
 
-Code within this root folder is for both the Stubber contract and a lightweight frontend that can be used to manage the stubber contract without runnning the full frontend application.
+## Developing
 
-## Networks
-
-- ropsten : [0xf75d6fa723d2c7c6e43be335ebb1fdd3b623a19b](https://ropsten.etherscan.io/address/0xf75d6fa723d2c7c6e43be335ebb1fdd3b623a19b)
-
-## Developing This Contract
+---
 
 In order to develop this contract the following steps were taken to setup the environment.
 
+```bash
+## Install project dependencies
+npm install
+```
+
 Install and run Ganache CLI (formally you would have used TestRPC). Alternatively you can install [Ganche](http://truffleframework.com/ganache/) UI.
 
-```
-$ npm install -g ganache-cli
-$ ganache-cli -p 8545
+```bash
+npm install -g ganache-cli
+ganache-cli -p 8545
 ```
 
 Navigate into the root of this project and install truffle (if you haven't already got it). Run the truffle test command to compile and test the contracts.
@@ -44,6 +40,37 @@ The configuration for running the network locally using truffle is in the `truff
     }
   }
 ```
+
+## Deployment
+
+---
+
+The current configuration is setup to use [INFURA gateway](https://infura.io/) for deployment. You will need to register for a free Token on their site.
+
+You'll also need to create a development wallet and get a hold of the private key to use it.
+
+With both these pieces of data, create a file called `.env` in this part of the repo and deplace the two fields. Check `.env.example` for an example.
+
+```bash
+## .env
+PRIV_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+INFURA_TOKEN="XXXXXXXXXXXXXXXXXXXX"
+```
+
+### Compile and Migrate
+
+Once your keys and token is setup, you can run the following to compile and then migrate to ropsten
+
+```bash
+truffle compile
+truffle migrate --network ropsten
+```
+
+**NOTE** *I've left the configuration for Rinkeby in truffle-config.js / truffle.js as an example for how to deploy there.*
+
+## Test Interface
+
+---
 
 ### Changing the network Address
 

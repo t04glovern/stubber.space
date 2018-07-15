@@ -2,7 +2,7 @@ import firebase from "firebase";
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAytQQiEtwLpekSoxQTKNnEAMXHEQJ5pUk",
+  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   authDomain: "stubber-space.firebaseapp.com",
   databaseURL: "https://stubber-space.firebaseio.com",
   projectId: "stubber-space",

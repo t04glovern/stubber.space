@@ -6,6 +6,7 @@ frontend/node_modules
 # Firebase
 frontend/functions/node_modules
 frontend/firebase-debug.log
+frontend/src/app/config/firebase.js
 
 # production
 frontend/build

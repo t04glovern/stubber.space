@@ -1,29 +1,60 @@
-# Stubber
+# Stubber - Frontend
 
-[https://stubber-space.firebaseapp.com/](https://stubber-space.firebaseapp.com/)
+The site is available at the following URL
 
-## Update contracts
+[https://stubber.space](https://stubber.space)
 
-Once you've compiled new contracts using Truffle (see contract README) you can run the following to update the local copies of these files.
+## Development
+
+---
+
+### Update contracts
+
+Once you've compiled new [contracts using Truffle](../contract/README.md) you can run the following to update the local copies of these files.
 
 ```bash
 npm run contracts
 ```
 
-## Run
+### Run
 
 ```bash
 npm install
 npm run start
 ```
 
-## Build
+### Build
 
 ```bash
 npm run build
 ```
 
 ## Deploy
+
+---
+
+This application is built to run with Firebase as a blob storage backend. There are a couple dependencies that need to be setup in order to make sure the site can connect to a firebase instance.
+
+### Firebase Config
+
+**Make a copy** of `src/app/config/firebase.js.example` as `src/app/config/firebase.js`
+
+Under `src/app/config/firebase.js` you'll have to populate the various fields with the configuration you recieve from Firebase when creating a new project.
+
+```javascript
+const firebaseConfig = {
+  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  authDomain: "stubber-space.firebaseapp.com",
+  databaseURL: "https://stubber-space.firebaseio.com",
+  projectId: "stubber-space",
+  storageBucket: "stubber-space.appspot.com",
+  messagingSenderId: "734465950191"
+}
+```
+
+Also change **projects:defaults** in `.firebaserc` to your firebase ID!
+
+Then you can simply run the following to have a new instance deployed to firebase.
 
 ```bash
 cd functions
