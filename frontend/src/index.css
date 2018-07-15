@@ -94,3 +94,8 @@ body {
   padding-bottom: 0 !important;
   padding-left: 2em !important;
 }
+
+/* modal alignment */
+.ui.modal {
+  top: 25%;
+}

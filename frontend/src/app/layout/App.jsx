@@ -114,6 +114,9 @@ class App extends Component {
                   <Route component={AsyncNotFound} />
                 </Switch>
               </Container>
+              <br/>
+              <br/>
+              <br/>
               <AsyncFootBar />
             </div>
           )}

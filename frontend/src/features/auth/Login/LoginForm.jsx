@@ -13,7 +13,7 @@ const actions = {
 
 const LoginForm = ({ login, handleSubmit, error, socialLogin }) => {
   return (
-    <Form size="large" onSubmit={handleSubmit(login)}>
+    <Form onSubmit={handleSubmit(login)}>
       <Segment>
         <Field
           name="email"
