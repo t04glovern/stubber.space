@@ -102,7 +102,7 @@ class EventDetailedPage extends Component {
       return <LoadingComponent inverted={true} />;
 
     return (
-      <Grid>
+      <Grid stackable>
         <Grid.Column width={10}>
           <EventDetailedHeader
             event={event}

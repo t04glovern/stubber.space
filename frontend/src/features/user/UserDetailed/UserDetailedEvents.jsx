@@ -26,7 +26,7 @@ const UserDeteiledEvents = ({ events, eventsLoading, changeTab }) => {
           {events &&
             events.map(event => (
               <Card as={Link} to={`/event/${event.id}`} key={event.id}>
-                <Image src={`/assets/categoryImages/${event.category}.jpg` && `/assets/categoryImages/music.jpg`} />
+                <Image src={event.photoURL || `/assets/categoryImages/music.jpg`} />
                 <Card.Content>
                   <Card.Header textAlign="center">{event.title}</Card.Header>
                   <Card.Meta textAlign="center">

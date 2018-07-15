@@ -17,7 +17,7 @@ class EventDetailedChatForm extends Component {
     return (
       <Form onSubmit={this.props.handleSubmit(this.handleCommentSubmit)} reply>
         <Field name="comment" type="text" component={TextArea} row={2} />
-        <Button content="Add Reply" labelPosition="left" icon="edit" primary />
+        <Button content="Post Reply" labelPosition="left" icon="edit" primary />
       </Form>
     );
   }

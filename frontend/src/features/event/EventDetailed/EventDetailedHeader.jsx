@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Image, Item, Header, Button, Label } from "semantic-ui-react";
+import { Segment, Image, Item, Header, Popup, Button, Label } from "semantic-ui-react";
 // import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 import format from "date-fns/format";
@@ -60,7 +60,22 @@ const EventDetailedHeader = ({
                 />
                 <p>{format(eventDate, "dddd Do MMMM")}</p>
                 <p>
-                  Hosted by <strong>{event.artist}</strong>
+                Hosted by{" "}
+              <Popup
+                trigger={
+                  <a style={{color: "grey"}}
+                    href={`https://ropsten.etherscan.io/address/${
+                      event.artist
+                    }`}
+                  >
+                    {event.artist.substring(0, 12)}
+                    {"..."}
+                  </a>
+                }
+                content={event.artist}
+                position="bottom center"
+                size="tiny"
+              />
                 </p>
               </Item.Content>
             </Item>

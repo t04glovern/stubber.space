@@ -79,7 +79,7 @@ class UserDetailedPage extends Component {
 
     if (loading) return <LoadingComponent inverted={true} />;
     return (
-      <Grid>
+      <Grid stackable width={16}>
         <UserDetailedHeader profile={profile} />
         <UserDetailedDescription profile={profile} />
         <UserDetailedSidebar

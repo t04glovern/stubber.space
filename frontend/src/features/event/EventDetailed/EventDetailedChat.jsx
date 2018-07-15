@@ -33,8 +33,7 @@ class EventDetailedChat extends Component {
           textAlign="center"
           attached="top"
           inverted
-          color="violet"
-          style={{ border: "none" }}
+          style={{ border: "none", backgroundColor: "#673ab7" }}
         >
           <Header>Chat about this event</Header>
         </Segment>
