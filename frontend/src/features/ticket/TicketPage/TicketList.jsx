@@ -4,7 +4,7 @@ import TicketListItem from "./TicketListItem";
 
 class TicketList extends Component {
   render() {
-    const { tickets } = this.props;
+    const { tickets, accounts } = this.props;
     let ticketMap = [];
     for (var x = 0; x < tickets.length; x++) {
       ticketMap[x] = {
@@ -14,12 +14,19 @@ class TicketList extends Component {
     }
 
     return (
-      <Grid.Column>
-        {ticketMap && ticketMap.length > 0 ?
+      <Grid stackable columns={4}>
+        {ticketMap && ticketMap.length > 0 ? (
           ticketMap.map(ticket => (
-            <TicketListItem key={ticket.id} ticket={ticket} />
-          )) : <Header content="You don't own any tickets yet!" />}
-        </Grid.Column>
+            <TicketListItem
+              key={ticket.id}
+              ticket={ticket}
+              accounts={accounts}
+            />
+          ))
+        ) : (
+          <Header content="You don't own any tickets yet!" />
+        )}
+      </Grid>
     );
   }
 }

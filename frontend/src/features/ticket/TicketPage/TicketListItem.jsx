@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { drizzleConnect } from "drizzle-react";
-import { Segment, Card, Icon, Label, Popup } from "semantic-ui-react";
+import { Segment, Card, Divider, Grid, Icon, Label, Popup } from "semantic-ui-react";
 import format from "date-fns/format";
+import { QRCode } from "react-qr-svg";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 const mapStateToProps = state => {
   return {
@@ -40,25 +42,33 @@ class TicketListItem extends Component {
   }
 
   render() {
-    const { ticket, StubToken } = this.props;
-    if (!this.state.loadingDrizzle) {
-      var storedData = this.contracts["StubToken"].methods[
-        "getTicketDetails"
-      ].cacheCall(ticket.number);
-      var stubTicket =
-        StubToken.synced && StubToken["getTicketDetails"][storedData]
-          ? StubToken["getTicketDetails"][storedData].value
-          : "Loading...";
-    }
+    const { ticket, StubToken, accounts, drizzleStatus } = this.props;
+    if (!drizzleStatus.initialized) return <LoadingComponent inverted={true} />;
+    let account = accounts[0];
+    var storedData = this.contracts["StubToken"].methods[
+      "getTicketDetails"
+    ].cacheCall(ticket.number);
+    var stubTicket =
+      StubToken.synced && StubToken["getTicketDetails"][storedData]
+        ? StubToken["getTicketDetails"][storedData].value
+        : "Loading...";
+
     return (
-      <Segment.Group style={{ background: "purple" }}>
+      <Grid.Column>
+      <Segment.Group>
         {stubTicket &&
           stubTicket !== "Loading..." && (
             <Segment>
               <Card fluid>
                 <Card.Content>
-                  <Card.Header href={`/event/${this.web3.utils.hexToAscii(stubTicket.id).replace(/\0.*$/g, "")}`}>
-                    {this.web3.utils.hexToAscii(stubTicket.name).replace(/\0.*$/g, "")}
+                  <Card.Header
+                    href={`/event/${this.web3.utils
+                      .hexToAscii(stubTicket.id)
+                      .replace(/\0.*$/g, "")}`}
+                  >
+                    {this.web3.utils
+                      .hexToAscii(stubTicket.name)
+                      .replace(/\0.*$/g, "")}
                   </Card.Header>
                   <Card.Meta>
                     <Popup
@@ -69,7 +79,8 @@ class TicketListItem extends Component {
                             stubTicket.artist
                           }`}
                         >
-                          {stubTicket.artist}
+                          {stubTicket.artist.substring(0, 12)}
+                          {"..."}
                         </Label>
                       }
                       content={stubTicket.artist}
@@ -89,9 +100,17 @@ class TicketListItem extends Component {
                   </Card.Description>
                 </Card.Content>
               </Card>
+              <Divider />
+              <QRCode
+                bgColor="#FFFFFF"
+                fgColor="#000000"
+                level="Q"
+                value={account}
+              />
             </Segment>
           )}
       </Segment.Group>
+      </Grid.Column>
     );
   }
 }
