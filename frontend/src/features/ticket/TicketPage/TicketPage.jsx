@@ -39,17 +39,22 @@ class TicketPage extends Component {
         ? StubToken["ticketsOf"][storedData].value
         : "Loading...";
     return (
-      <Grid stackable>
-        <Grid.Column width={16}>
-          {tickets &&
-            tickets !== "Loading..." && (
-              <TicketList tickets={tickets} accounts={accounts} />
-            )}
-        </Grid.Column>
-        <Grid.Column width={16}>
-          <Loader active={loading} />
-        </Grid.Column>
-      </Grid>
+      <div>
+        <p>
+          <i><strong>{accounts[0]}</strong>{"'s Tickets"}</i>
+        </p>
+        <Grid stackable>
+          <Grid.Column width={16}>
+            {tickets &&
+              tickets !== "Loading..." && (
+                <TicketList tickets={tickets} accounts={accounts} />
+              )}
+          </Grid.Column>
+          <Grid.Column width={16}>
+            <Loader active={loading} />
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }
