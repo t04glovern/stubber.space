@@ -9,7 +9,7 @@ const MetaMaskConnect = ({ inverted }) => {
           <Grid.Row>
             <Grid.Column>
               <Image wrapped size="small" src="/assets/fox.svg" />
-              Web3 Service Unknown; please login to{" "}
+              Web3 Service Unknown 😱 Please install / login to{" "}
               <a href="https://metamask.io/">metamask</a>!
             </Grid.Column>
           </Grid.Row>
