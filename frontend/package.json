@@ -29,7 +29,7 @@
     "react-redux-toastr": "^7.2.3",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts": "^1.1.4",
+    "react-scripts": "2.0.0-next.3e165448",
     "redux": "^4.0.0",
     "redux-auth-wrapper": "^2.0.2",
     "redux-firestore": "^0.3.2",
@@ -39,6 +39,7 @@
     "revalidate": "^1.2.0",
     "semantic-ui-css": "2.2.14",
     "semantic-ui-react": "^0.81.3",
+    "uport-connect": "^0.7.3",
     "web3": "1.0.0-beta.34"
   },
   "devDependencies": {
@@ -57,5 +58,17 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "deploy": "npm run build && firebase deploy",
     "contracts": "scripts/update-contracts.sh"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">0.25%",
+      "not op_mini all",
+      "ie 11"
+    ]
   }
 }

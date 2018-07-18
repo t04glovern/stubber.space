@@ -4,7 +4,7 @@ import TicketListItem from "./TicketListItem";
 
 class TicketList extends Component {
   render() {
-    const { tickets, accounts } = this.props;
+    const { tickets, accounts, uri } = this.props;
     let ticketMap = [];
     for (var x = 0; x < tickets.length; x++) {
       ticketMap[x] = {
@@ -14,13 +14,14 @@ class TicketList extends Component {
     }
 
     return (
-      <Grid stackable columns={4}>
+      <Grid stackable columns={3}>
         {ticketMap && ticketMap.length > 0 ? (
           ticketMap.map(ticket => (
             <TicketListItem
               key={ticket.id}
               ticket={ticket}
               accounts={accounts}
+              uri={uri}
             />
           ))
         ) : (

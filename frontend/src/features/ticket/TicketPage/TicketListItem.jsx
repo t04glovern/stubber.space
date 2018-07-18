@@ -42,9 +42,8 @@ class TicketListItem extends Component {
   }
 
   render() {
-    const { ticket, StubToken, accounts, drizzleStatus } = this.props;
+    const { ticket, StubToken, drizzleStatus, uri } = this.props;
     if (!drizzleStatus.initialized) return <LoadingComponent inverted={true} />;
-    let account = accounts[0];
     var storedData = this.contracts["StubToken"].methods[
       "getTicketDetails"
     ].cacheCall(ticket.number);
@@ -105,7 +104,7 @@ class TicketListItem extends Component {
                 bgColor="#FFFFFF"
                 fgColor="#000000"
                 level="Q"
-                value={account}
+                value={String(uri)}
               />
             </Segment>
           )}

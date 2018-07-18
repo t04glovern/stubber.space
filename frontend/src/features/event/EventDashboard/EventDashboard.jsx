@@ -60,7 +60,7 @@ class EventDashboard extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.events !== nextProps.events) {
       this.setState({
         loadedEvents: [...this.state.loadedEvents, ...nextProps.events]
