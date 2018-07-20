@@ -8,12 +8,28 @@ import PlaceInput from "../../../app/common/form/PlaceInput";
 import SelectInput from "../../../app/common/form/SelectInput";
 
 const interests = [
-  { key: "drinks", text: "Drinks", value: "drinks" },
-  { key: "culture", text: "Culture", value: "culture" },
-  { key: "film", text: "Film", value: "film" },
-  { key: "food", text: "Food", value: "food" },
-  { key: "music", text: "Music", value: "music" },
-  { key: "travel", text: "Travel", value: "travel" }
+  { key: "alternative", text: "Alternative", value: "Alternative" },
+  { key: "blues", text: "Blues", value: "Blues" },
+  { key: "classical", text: "Classical", value: "Classical" },
+  { key: "country", text: "Country", value: "Country" },
+  { key: "dance", text: "Dance", value: "Dance" },
+  { key: "easylistening", text: "Easy Listening", value: "Easy Listening" },
+  { key: "electronic", text: "Electronic", value: "Electronic" },
+  { key: "europeanfolkpop", text: "European (Folk Pop)", value: "European (Folk Pop)" },
+  { key: "hiphoprap", text: "Hip Hop / Rap", value: "Hip Hop / Rap" },
+  { key: "indiepop", text: "Indie Pop", value: "Indie Pop" },
+  { key: "gospel", text: "Gospel", value: "Gospel" },
+  { key: "asianpop", text: "Asian Pop", value: "Asian Pop" },
+  { key: "jazz", text: "Jazz", value: "Jazz" },
+  { key: "latin", text: "Latin", value: "Latin" },
+  { key: "newage", text: "New Age", value: "New Age" },
+  { key: "opera", text: "Opera", value: "Opera" },
+  { key: "pop", text: "Pop", value: "Pop" },
+  { key: "rbsoul", text: "R&B / Soul", value: "R&B / Soul" },
+  { key: "reggae", text: "Reggae", value: "Reggae" },
+  { key: "rock", text: "Rock", value: "Rock" },
+  { key: "singerfolk", text: "Singer (Folk)", value: "Singer (Folk)" },
+  { key: "worldmusicbeats", text: "World Music / Beats", value: "World Music / Beats" }
 ];
 
 const AboutPage = ({ pristine, submitting, handleSubmit, updateProfile }) => {

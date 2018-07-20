@@ -29,10 +29,10 @@ const mapState = state => ({
 class TicketPage extends Component {
   constructor(props, context) {
     super(props);
-    this.getCredentials();
     this.contracts = context.drizzle.contracts;
     this.web3 = context.drizzle.web3;
     this.uri = undefined;
+    this.getCredentials();
   }
 
   uriHandler = (uri) => {

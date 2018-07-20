@@ -19,9 +19,21 @@ const SocialLogin = ({ socialLogin }) => {
         type="button"
         fluid
         color="google plus"
+        style={{ marginBottom: "10px" }}
       >
         <Icon name="google plus" />
         Login with Google
+      </Button>
+
+      <Button
+        onClick={() => socialLogin("uport")}
+        disabled
+        type="button"
+        fluid
+        style={{backgroundColor: "#5B4FCB", color: "white"}}
+      >
+        <Icon name="users" />
+        Login with uPort
       </Button>
     </div>
   );

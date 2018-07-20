@@ -12,7 +12,7 @@ const UserDetailedDescription = ({ profile }) => {
       <Segment>
         <Grid columns={2}>
           <Grid.Column width={10}>
-            <Header icon="smile" content="About Display Name" />
+            <Header icon="child" content="About Me"/>
             <p>
               I am a: <strong>{profile.occupation || "tbn"}</strong>
             </p>
@@ -25,13 +25,13 @@ const UserDetailedDescription = ({ profile }) => {
             <p>{profile.description}</p>
           </Grid.Column>
           <Grid.Column width={6}>
-            <Header icon="heart outline" content="Interests" />
+            <Header icon="heart" content="Interests" />
             {profile.interests ? (
               <List>
                 {profile.interests &&
                   profile.interests.map((interest, index) => (
                     <Item key={index}>
-                      <Icon name="heart" />
+                      <Icon name="heart outline" />
                       <Item.Content>{interest}</Item.Content>
                     </Item>
                   ))}
