@@ -14,7 +14,7 @@ class TicketList extends Component {
     }
 
     return (
-      <Grid stackable columns={3}>
+      <Grid stackable columns={2}>
         {ticketMap && ticketMap.length > 0 ? (
           ticketMap.map(ticket => (
             <TicketListItem

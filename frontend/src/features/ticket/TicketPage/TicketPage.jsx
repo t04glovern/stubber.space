@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Loader } from "semantic-ui-react";
+import { Grid, Loader, Card, Image, Icon } from "semantic-ui-react";
 import { drizzleConnect } from "drizzle-react";
-import { Connect, SimpleSigner } from 'uport-connect'
+import { Connect, SimpleSigner } from "uport-connect";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import MetaMaskConnect from "../../../app/layout/MetaMaskConnect";
 import TicketList from "./TicketList";
 
 // Example Codes
 const mnidAddress = "2p1ZYLx62fx2bRcbiheMZ1wsF7p6A32e3AJ";
-const signingKey = "421d7707b215a83b2808c6884aa8ec3353737772bf51b05d056098ff0eafd108";
+const signingKey =
+  "421d7707b215a83b2808c6884aa8ec3353737772bf51b05d056098ff0eafd108";
 const appName = "Stubber";
 
 const mapStateToProps = state => {
@@ -35,31 +36,47 @@ class TicketPage extends Component {
     this.getCredentials();
   }
 
-  uriHandler = (uri) => {
+  state = {
+    uportName: undefined,
+    uportImage: undefined,
+    uportPhone: undefined,
+    uportLocation: undefined
+  };
+
+  uriHandler = uri => {
     this.uri = uri;
-  }
+  };
 
   async getCredentials() {
     const uport = new Connect(appName, {
       uriHandler: this.uriHandler,
       clientId: mnidAddress,
-      network: 'ropsten',
+      network: "ropsten",
       signer: SimpleSigner(signingKey)
     });
 
     // Request userProfile
-     await uport.requestCredentials({
-      requested: ['name', 'avatar', 'phone', 'country']
-     })
-     .then((userProfile) => {
-      console.log(userProfile);
-      return userProfile;
-    })
+    await uport
+      .requestCredentials({
+        requested: ["name", "avatar", "phone", "country"]
+      })
+      .then(userProfile => {
+        console.log(userProfile);
+        this.setState({
+          uportName: userProfile.name,
+          uportImage: userProfile.avatar.uri,
+          uportPhone: userProfile.phone,
+          uportLocation: userProfile.country
+        });
+        return userProfile;
+      });
   }
 
   render() {
     const { loading, StubToken, accounts, drizzleStatus } = this.props;
-    if (!drizzleStatus.initialized || !this.uri) return <LoadingComponent inverted={true} />;
+    const { uportName, uportImage, uportPhone, uportLocation } = this.state;
+    if (!drizzleStatus.initialized || !this.uri)
+      return <LoadingComponent inverted={true} />;
     if (!accounts[0]) return <MetaMaskConnect inverted={true} />;
     var storedData = this.contracts["StubToken"].methods["ticketsOf"].cacheCall(
       accounts[0]
@@ -70,15 +87,43 @@ class TicketPage extends Component {
         : "Loading...";
     return (
       <div>
-        <p>
-          <i><strong>{accounts[0]}</strong>{"'s Tickets"}</i>
-        </p>
         <Grid stackable>
-          <Grid.Column width={16}>
+          <Grid.Column width={12}>
+            <p>
+              <i>
+                <strong>{accounts[0]}</strong>
+                {"'s Tickets"}
+              </i>
+            </p>
             {tickets &&
               tickets !== "Loading..." && (
-                <TicketList tickets={tickets} accounts={accounts} uri={this.uri} />
+                <TicketList
+                  tickets={tickets}
+                  accounts={accounts}
+                  uri={this.uri}
+                />
               )}
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <p>
+              <i>
+                <strong>uPort</strong>
+                {" Validation example"}
+              </i>
+            </p>
+            <Card>
+              <Image src={uportImage || "/assets/user.png"} />
+              <Card.Content>
+                <Icon name="user" />
+                <Card.Header>{uportName}</Card.Header>
+                <Card.Meta>
+                  <Icon name="location arrow" />
+                  <span>{uportLocation}</span>
+                </Card.Meta>
+                <Icon name="phone" />
+                <Card.Description>{uportPhone}</Card.Description>
+              </Card.Content>
+            </Card>
           </Grid.Column>
           <Grid.Column width={16}>
             <Loader active={loading} />
