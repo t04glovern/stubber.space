@@ -114,13 +114,11 @@ class TicketPage extends Component {
             <Card>
               <Image src={uportImage || "/assets/user.png"} />
               <Card.Content>
-                <Icon name="user" />
                 <Card.Header>{uportName}</Card.Header>
                 <Card.Meta>
                   <Icon name="location arrow" />
                   <span>{uportLocation}</span>
                 </Card.Meta>
-                <Icon name="phone" />
                 <Card.Description>{uportPhone}</Card.Description>
               </Card.Content>
             </Card>
