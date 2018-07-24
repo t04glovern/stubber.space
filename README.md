@@ -9,7 +9,9 @@
 
 ---
 
-<img src="img/smackathon-finalist.png" data-canonical-src="img/smackathon-finalist.png" href="https://devpost.com/software/stubber" align="center"/>
+<img src="img/smackathon-finalist.png" data-canonical-src="img/smackathon-finalist.png" align="center"/>
+
+Find out more [HERE](https://devpost.com/software/stubber)
 
 This repository houses the Stubber ticket sale and management platform. It has been built using Ethereum smart contracts.
 
